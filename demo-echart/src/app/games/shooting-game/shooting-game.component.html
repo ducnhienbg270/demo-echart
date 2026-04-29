@@ -1,0 +1,175 @@
+<div class="game-container">
+  <!-- Start Screen -->
+  <div class="start-screen" *ngIf="gamePhase === 'start'">
+    <h1>🚀 Mini Shooting Game</h1>
+    
+    <div class="instructions">
+      <h2>Cách chơi:</h2>
+      <div class="controls-info">
+        <div class="control-row">
+          <div class="key-group">
+            <div class="key">←</div>
+            <div class="key">→</div>
+          </div>
+          <span>Di chuyển trái/phải</span>
+        </div>
+        <div class="control-row">
+          <div class="key space-key">SPACE</div>
+          <span>Bắn</span>
+        </div>
+      </div>
+      
+      <h3>Loại Enemy:</h3>
+      <ul class="enemy-list">
+        <li>🟢 <strong>Basic:</strong> 10 HP, chậm, +10 điểm</li>
+        <li>🔴 <strong>Fast:</strong> 5 HP, nhanh, +15 điểm</li>
+        <li>🟡 <strong>Tank:</strong> 20 HP, chậm, +20 điểm</li>
+        <li>👾 <strong>Boss:</strong> 50 HP, rất chậm, +100 điểm</li>
+      </ul>
+      
+      <h3>Power-ups:</h3>
+      <ul class="powerup-list">
+        <li>🔫 <strong>Rapid Fire:</strong> Bắn nhanh 5 giây</li>
+        <li>💣 <strong>Bomb:</strong> Tiêu diệt tất cả enemy</li>
+        <li>❤️ <strong>Heal:</strong> Hồi 30 HP</li>
+      </ul>
+      
+      <p class="tip">💡 Giết liên tiếp để tăng combo và nhân điểm!</p>
+    </div>
+
+    <button class="start-button" (click)="startGame()">Bắt đầu bắn</button>
+    <a routerLink="/games" class="back-button">← Quay lại</a>
+  </div>
+
+  <!-- Playing Screen -->
+  <div class="playing-screen" *ngIf="gamePhase === 'playing'">
+    <!-- HUD -->
+    <div class="hud">
+      <div class="hud-left">
+        <div class="hp-container">
+          <div class="label">HP</div>
+          <div class="hp-bar">
+            <div 
+              class="hp-fill"
+              [style.width.%]="getHPPercentage()"
+              [style.background-color]="getHPColor()">
+            </div>
+          </div>
+          <div class="hp-text">{{ player.hp }}/{{ player.maxHp }}</div>
+        </div>
+      </div>
+      
+      <div class="hud-center">
+        <div class="score-display">
+          <div class="score-label">SCORE</div>
+          <div class="score-value">{{ score }}</div>
+        </div>
+        <div class="combo-display" *ngIf="combo > 0">
+          <span class="combo-text">COMBO x{{ Math.floor(combo / 5) + 1 }}</span>
+          <span class="combo-count">{{ combo }}</span>
+        </div>
+      </div>
+      
+      <div class="hud-right">
+        <div class="time-display">
+          <div class="time-icon">⏱️</div>
+          <div class="time-value">{{ formatTime(survivalTime) }}</div>
+        </div>
+        <div class="powerup-indicator" *ngIf="rapidFireActive">
+          🔫 {{ Math.ceil(rapidFireTimer / 60) }}s
+        </div>
+      </div>
+    </div>
+
+    <!-- Game Arena -->
+    <div class="arena" [ngStyle]="getArenaStyle()">
+      <!-- Player -->
+      <div class="player" [ngStyle]="getPlayerStyle()">
+        🚀
+      </div>
+      
+      <!-- Bullets -->
+      <div 
+        *ngFor="let bullet of bullets"
+        class="bullet"
+        [ngStyle]="getBulletStyle(bullet)">
+      </div>
+      
+      <!-- Enemies -->
+      <div 
+        *ngFor="let enemy of enemies"
+        class="enemy"
+        [class.basic]="enemy.type === 'basic'"
+        [class.fast]="enemy.type === 'fast'"
+        [class.tank]="enemy.type === 'tank'"
+        [class.boss]="enemy.type === 'boss'"
+        [ngStyle]="getEnemyStyle(enemy)">
+        <div class="enemy-icon">{{ getEnemyIcon(enemy.type) }}</div>
+        <div class="enemy-hp-bar" *ngIf="enemy.hp < enemy.maxHp">
+          <div 
+            class="enemy-hp-fill"
+            [style.width.%]="(enemy.hp / enemy.maxHp) * 100">
+          </div>
+        </div>
+      </div>
+      
+      <!-- Power-ups -->
+      <div 
+        *ngFor="let powerUp of powerUps"
+        class="powerup"
+        [ngStyle]="getPowerUpStyle(powerUp)">
+        {{ getPowerUpIcon(powerUp.type) }}
+      </div>
+      
+      <!-- Floating Texts -->
+      <div 
+        *ngFor="let text of floatingTexts"
+        class="floating-text"
+        [ngStyle]="getFloatingTextStyle(text)">
+        {{ text.text }}
+      </div>
+    </div>
+
+    <!-- Controls Hint -->
+    <div class="controls-hint">
+      ← → : Di chuyển | SPACE : Bắn
+    </div>
+  </div>
+
+  <!-- Game Over Screen -->
+  <div class="gameover-screen" *ngIf="gamePhase === 'gameover'">
+    <div class="gameover-container">
+      <div class="gameover-icon">💀</div>
+      <h1>GAME OVER</h1>
+      <p class="gameover-message">Bạn đã bị tiêu diệt!</p>
+      
+      <div class="stats-grid">
+        <div class="stat-box">
+          <div class="stat-label">Điểm số</div>
+          <div class="stat-value">{{ score }}</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Thời gian sống</div>
+          <div class="stat-value">{{ formatTime(survivalTime) }}</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Max Combo</div>
+          <div class="stat-value">{{ maxCombo }}</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Độ khó</div>
+          <div class="stat-value">Level {{ difficultyLevel }}</div>
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button class="play-again-button" (click)="startGame()">
+          Chơi lại
+        </button>
+        <a routerLink="/games" class="back-button">Quay lại</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Made with Bob -->

@@ -37,6 +37,13 @@ export class GamesComponent {
       difficulty: 'Hard'
     },
     {
+      title: 'Mini Shooting Game',
+      description: 'Bắn hạ enemy, né đạn và sống sót! Thu thập power-ups và đạt điểm cao.',
+      route: '/games/shooting',
+      icon: '🚀',
+      difficulty: 'Hard'
+    },
+    {
       title: 'Coming Soon',
       description: 'More games will be added here!',
       route: '#',
