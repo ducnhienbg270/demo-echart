@@ -1,0 +1,102 @@
+<div class="trading-container">
+  <!-- Header with Ticker Info -->
+  <div class="trading-header">
+    <div class="ticker-info" *ngIf="ticker">
+      <div class="symbol">
+        <h2>{{ ticker.symbol }}</h2>
+      </div>
+      <div class="price-section">
+        <div class="current-price" [ngClass]="priceAnimationClass">
+          <span class="price-value">{{ formatNumber(ticker.price, 2) }}</span>
+          <span class="price-currency">USDT</span>
+        </div>
+        <div class="price-change" [ngClass]="getChangeClass()">
+          <span>{{ ticker.change24h >= 0 ? '+' : '' }}{{ formatNumber(ticker.change24h, 2) }}</span>
+          <span class="change-percent">{{ ticker.changePercent24h >= 0 ? '+' : '' }}{{ formatNumber(ticker.changePercent24h, 2) }}%</span>
+        </div>
+      </div>
+      <div class="stats-section">
+        <div class="stat-item">
+          <span class="stat-label">24h High</span>
+          <span class="stat-value">{{ formatNumber(ticker.high24h, 2) }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">24h Low</span>
+          <span class="stat-value">{{ formatNumber(ticker.low24h, 2) }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">24h Volume</span>
+          <span class="stat-value">{{ formatNumber(ticker.volume24h, 0) }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Trading Area -->
+  <div class="trading-main">
+    <!-- Chart Section -->
+    <div class="chart-section">
+      <div class="chart-header">
+        <h3>Candlestick Chart</h3>
+        <div class="chart-controls">
+          <span class="timeframe active">1m</span>
+          <span class="timeframe">5m</span>
+          <span class="timeframe">15m</span>
+          <span class="timeframe">1h</span>
+          <span class="timeframe">4h</span>
+          <span class="timeframe">1D</span>
+        </div>
+      </div>
+      <div class="chart-container">
+        <div echarts [options]="candlestickOption" class="echart"></div>
+      </div>
+    </div>
+
+    <!-- Order Book Section -->
+    <div class="orderbook-section">
+      <div class="orderbook-header">
+        <h3>Order Book</h3>
+      </div>
+      <div class="orderbook-container">
+        <!-- Asks (Sell Orders) -->
+        <div class="orderbook-asks">
+          <div class="orderbook-row header">
+            <span>Price (USDT)</span>
+            <span>Amount (BTC)</span>
+            <span>Total</span>
+          </div>
+          <div class="orderbook-items">
+            <div class="orderbook-row ask" *ngFor="let ask of orderBook.asks.slice(0, 10).reverse()">
+              <span class="price">{{ formatNumber(ask.price, 2) }}</span>
+              <span class="amount">{{ formatNumber(ask.amount, 4) }}</span>
+              <span class="total">{{ formatNumber(ask.total, 2) }}</span>
+              <div class="depth-bar ask-bar" [style.width.%]="(ask.amount / 2) * 100"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Current Price Separator -->
+        <div class="current-price-separator" *ngIf="ticker">
+          <div class="separator-line"></div>
+          <div class="separator-price" [ngClass]="getChangeClass()">
+            <span class="arrow">{{ ticker.changePercent24h >= 0 ? '▲' : '▼' }}</span>
+            <span class="price">{{ formatNumber(ticker.price, 2) }}</span>
+          </div>
+          <div class="separator-line"></div>
+        </div>
+
+        <!-- Bids (Buy Orders) -->
+        <div class="orderbook-bids">
+          <div class="orderbook-items">
+            <div class="orderbook-row bid" *ngFor="let bid of orderBook.bids.slice(0, 10)">
+              <span class="price">{{ formatNumber(bid.price, 2) }}</span>
+              <span class="amount">{{ formatNumber(bid.amount, 4) }}</span>
+              <span class="total">{{ formatNumber(bid.total, 2) }}</span>
+              <div class="depth-bar bid-bar" [style.width.%]="(bid.amount / 2) * 100"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

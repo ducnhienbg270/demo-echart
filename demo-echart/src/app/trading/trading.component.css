@@ -1,0 +1,402 @@
+.trading-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #0b0e11;
+  color: #eaecef;
+}
+
+/* Header Section */
+.trading-header {
+  background: #1a1a2e;
+  padding: 20px;
+  border-bottom: 1px solid #2a2a3e;
+}
+
+.ticker-info {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.symbol h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #eaecef;
+}
+
+.price-section {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.current-price {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 28px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.price-value {
+  color: #eaecef;
+}
+
+.price-currency {
+  font-size: 16px;
+  color: #848e9c;
+}
+
+/* Price Animation */
+.price-up {
+  animation: priceFlashGreen 0.5s ease;
+}
+
+.price-down {
+  animation: priceFlashRed 0.5s ease;
+}
+
+@keyframes priceFlashGreen {
+  0%, 100% {
+    background-color: transparent;
+  }
+  50% {
+    background-color: rgba(14, 203, 129, 0.2);
+    box-shadow: 0 0 20px rgba(14, 203, 129, 0.3);
+  }
+}
+
+@keyframes priceFlashRed {
+  0%, 100% {
+    background-color: transparent;
+  }
+  50% {
+    background-color: rgba(246, 70, 93, 0.2);
+    box-shadow: 0 0 20px rgba(246, 70, 93, 0.3);
+  }
+}
+
+.price-change {
+  display: flex;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.price-change.positive {
+  color: #0ecb81;
+}
+
+.price-change.negative {
+  color: #f6465d;
+}
+
+.change-percent {
+  font-weight: 600;
+}
+
+.stats-section {
+  display: flex;
+  gap: 30px;
+  margin-left: auto;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: #848e9c;
+}
+
+.stat-value {
+  font-size: 16px;
+  font-weight: 600;
+  color: #eaecef;
+}
+
+/* Main Trading Area */
+.trading-main {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Chart Section */
+.chart-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #1a1a2e;
+  border-right: 1px solid #2a2a3e;
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid #2a2a3e;
+}
+
+.chart-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #eaecef;
+}
+
+.chart-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.timeframe {
+  padding: 5px 12px;
+  font-size: 12px;
+  color: #848e9c;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.timeframe:hover {
+  background: #2a2a3e;
+  color: #eaecef;
+}
+
+.timeframe.active {
+  background: #fcd535;
+  color: #0b0e11;
+  font-weight: 600;
+}
+
+.chart-container {
+  flex: 1;
+  padding: 10px;
+}
+
+.echart {
+  width: 100%;
+  height: 100%;
+}
+
+/* Order Book Section */
+.orderbook-section {
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  background: #1a1a2e;
+}
+
+.orderbook-header {
+  padding: 15px 20px;
+  border-bottom: 1px solid #2a2a3e;
+}
+
+.orderbook-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #eaecef;
+}
+
+.orderbook-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.orderbook-asks,
+.orderbook-bids {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.orderbook-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 4px 15px;
+  font-size: 12px;
+  position: relative;
+  transition: background 0.2s;
+}
+
+.orderbook-row.header {
+  color: #848e9c;
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+  background: #1a1a2e;
+  z-index: 1;
+  padding: 8px 15px;
+}
+
+.orderbook-row:not(.header):hover {
+  background: #2a2a3e;
+}
+
+.orderbook-row span {
+  text-align: right;
+  z-index: 1;
+  position: relative;
+}
+
+.orderbook-row span:first-child {
+  text-align: left;
+}
+
+.orderbook-row.ask .price {
+  color: #f6465d;
+}
+
+.orderbook-row.bid .price {
+  color: #0ecb81;
+}
+
+.orderbook-row .amount {
+  color: #eaecef;
+}
+
+.orderbook-row .total {
+  color: #848e9c;
+}
+
+/* Depth Bar Animation */
+.depth-bar {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  opacity: 0.15;
+  transition: width 0.3s ease;
+  z-index: 0;
+}
+
+.ask-bar {
+  background: #f6465d;
+}
+
+.bid-bar {
+  background: #0ecb81;
+}
+
+/* Current Price Separator */
+.current-price-separator {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  background: #0b0e11;
+  border-top: 1px solid #2a2a3e;
+  border-bottom: 1px solid #2a2a3e;
+}
+
+.separator-line {
+  flex: 1;
+  height: 1px;
+  background: #2a2a3e;
+}
+
+.separator-price {
+  padding: 0 15px;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  animation: pulse 2s infinite;
+}
+
+.separator-price.positive {
+  color: #0ecb81;
+}
+
+.separator-price.negative {
+  color: #f6465d;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.separator-price .arrow {
+  font-size: 10px;
+}
+
+/* Scrollbar Styling */
+.orderbook-asks::-webkit-scrollbar,
+.orderbook-bids::-webkit-scrollbar {
+  width: 6px;
+}
+
+.orderbook-asks::-webkit-scrollbar-track,
+.orderbook-bids::-webkit-scrollbar-track {
+  background: #1a1a2e;
+}
+
+.orderbook-asks::-webkit-scrollbar-thumb,
+.orderbook-bids::-webkit-scrollbar-thumb {
+  background: #2a2a3e;
+  border-radius: 3px;
+}
+
+.orderbook-asks::-webkit-scrollbar-thumb:hover,
+.orderbook-bids::-webkit-scrollbar-thumb:hover {
+  background: #3a3a4e;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .trading-main {
+    flex-direction: column;
+  }
+
+  .chart-section {
+    border-right: none;
+    border-bottom: 1px solid #2a2a3e;
+    height: 60%;
+  }
+
+  .orderbook-section {
+    width: 100%;
+    height: 40%;
+  }
+
+  .orderbook-container {
+    flex-direction: row;
+  }
+
+  .orderbook-asks,
+  .orderbook-bids {
+    width: 50%;
+  }
+}
+
+@media (max-width: 768px) {
+  .ticker-info {
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .stats-section {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .current-price {
+    font-size: 24px;
+  }
+}
+
+/* Made with Bob */

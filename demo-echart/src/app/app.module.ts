@@ -3,11 +3,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MapComponent } from './map/map.component';
+import { TradingComponent } from './trading/trading.component';
 
 // ng-zorro imports
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
@@ -38,11 +40,13 @@ registerLocaleData(en);
   declarations: [
     AppComponent,
     DashboardComponent,
-    MapComponent
+    MapComponent,
+    TradingComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    CommonModule,
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
