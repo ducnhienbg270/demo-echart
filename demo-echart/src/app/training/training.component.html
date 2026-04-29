@@ -1,0 +1,83 @@
+<div class="training-container">
+  <div class="training-header">
+    <h1>🎓 AWS Certification Training</h1>
+    <p class="subtitle">Ôn luyện kiến thức và đề thi chứng chỉ AWS</p>
+  </div>
+
+  <!-- Certifications Section -->
+  <section class="certifications-section">
+    <h2>Chứng chỉ AWS</h2>
+    <div class="certifications-grid">
+      <div *ngFor="let cert of certifications" class="cert-card">
+        <div class="cert-icon">{{ cert.icon }}</div>
+        <div class="cert-content">
+          <div class="cert-level">{{ cert.level }}</div>
+          <h3>{{ cert.title }}</h3>
+          <p class="cert-description">{{ cert.description }}</p>
+          
+          <div class="cert-topics">
+            <h4>Nội dung chính:</h4>
+            <ul>
+              <li *ngFor="let topic of cert.topics">{{ topic }}</li>
+            </ul>
+          </div>
+          
+          <a [routerLink]="cert.route" class="start-quiz-btn">
+            Bắt đầu ôn tập
+            <span class="arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Study Resources Section -->
+  <section class="resources-section">
+    <h2>Tài liệu học tập</h2>
+    <div class="resources-grid">
+      <a *ngFor="let resource of studyResources" 
+         [href]="resource.link" 
+         target="_blank"
+         class="resource-card">
+        <div class="resource-icon">{{ resource.icon }}</div>
+        <h3>{{ resource.title }}</h3>
+        <p>{{ resource.description }}</p>
+        <span class="external-link">Mở link ↗</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Tips Section -->
+  <section class="tips-section">
+    <h2>💡 Lời khuyên khi ôn thi</h2>
+    <div class="tips-grid">
+      <div class="tip-card">
+        <div class="tip-number">1</div>
+        <h3>Hiểu khái niệm cơ bản</h3>
+        <p>Nắm vững các khái niệm và dịch vụ AWS cơ bản trước khi đi sâu</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-number">2</div>
+        <h3>Thực hành hands-on</h3>
+        <p>Tạo tài khoản AWS Free Tier và thực hành với các dịch vụ thực tế</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-number">3</div>
+        <h3>Làm đề thi thử</h3>
+        <p>Luyện tập với các câu hỏi mẫu để làm quen với format đề thi</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-number">4</div>
+        <h3>Đọc FAQs và Whitepapers</h3>
+        <p>Tài liệu chính thức từ AWS rất quan trọng cho kỳ thi</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Back Button -->
+  <div class="back-section">
+    <a routerLink="/" class="back-button">← Quay lại trang chủ</a>
+  </div>
+</div>
+
+<!-- Made with Bob -->

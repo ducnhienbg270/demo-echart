@@ -1,0 +1,101 @@
+<div class="quiz-container">
+  <!-- Quiz Header -->
+  <div class="quiz-header">
+    <h1>💻 AWS Developer Associate</h1>
+    <div class="progress-bar">
+      <div class="progress-fill" [style.width.%]="progress"></div>
+    </div>
+    <p class="progress-text">Question {{ currentQuestionIndex + 1 }} / {{ questions.length }}</p>
+  </div>
+
+  <!-- Quiz Content -->
+  <div class="quiz-content" *ngIf="!quizCompleted">
+    <div class="question-card">
+      <h2 class="question-text">{{ currentQuestion.question }}</h2>
+      
+      <div class="options-list">
+        <div *ngFor="let option of currentQuestion.options; let i = index"
+             class="option-item"
+             [class.selected]="selectedAnswer === i"
+             [class.correct]="showExplanation && i === currentQuestion.correctAnswer"
+             [class.incorrect]="showExplanation && selectedAnswer === i && i !== currentQuestion.correctAnswer"
+             [class.disabled]="showExplanation"
+             (click)="selectAnswer(i)">
+          <div class="option-letter">{{ String.fromCharCode(65 + i) }}</div>
+          <div class="option-text">{{ option }}</div>
+          <div class="option-icon" *ngIf="showExplanation">
+            <span *ngIf="i === currentQuestion.correctAnswer">✓</span>
+            <span *ngIf="selectedAnswer === i && i !== currentQuestion.correctAnswer">✗</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="explanation-box" *ngIf="showExplanation">
+        <h3>💡 Explanation:</h3>
+        <p>{{ currentQuestion.explanation }}</p>
+      </div>
+
+      <div class="quiz-actions">
+        <button class="btn btn-secondary" 
+                (click)="previousQuestion()"
+                [disabled]="currentQuestionIndex === 0">
+          ← Previous
+        </button>
+        
+        <button class="btn btn-primary" 
+                *ngIf="!showExplanation"
+                (click)="submitAnswer()"
+                [disabled]="selectedAnswer === null">
+          Submit Answer
+        </button>
+        
+        <button class="btn btn-primary" 
+                *ngIf="showExplanation"
+                (click)="nextQuestion()">
+          {{ currentQuestionIndex < questions.length - 1 ? 'Next →' : 'View Results' }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Results Screen -->
+  <div class="results-screen" *ngIf="quizCompleted">
+    <div class="results-card">
+      <div class="results-icon">🎯</div>
+      <h2>Quiz Results</h2>
+      
+      <div class="score-circle">
+        <div class="score-number">{{ score }}/{{ questions.length }}</div>
+        <div class="score-percentage">{{ getScorePercentage() | number:'1.0-0' }}%</div>
+      </div>
+      
+      <div class="grade-badge" [class]="'grade-' + getScoreGrade()">
+        {{ getScoreGrade() }}
+      </div>
+
+      <div class="results-stats">
+        <div class="stat-item">
+          <div class="stat-value">{{ score }}</div>
+          <div class="stat-label">Correct</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">{{ questions.length - score }}</div>
+          <div class="stat-label">Incorrect</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">{{ questions.length }}</div>
+          <div class="stat-label">Total</div>
+        </div>
+      </div>
+
+      <div class="results-actions">
+        <button class="btn btn-primary" (click)="restartQuiz()">
+          Retry Quiz
+        </button>
+        <a routerLink="/training" class="btn btn-secondary">
+          Back to Training
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

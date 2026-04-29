@@ -16,6 +16,9 @@ import { CookingGameComponent } from './games/cooking-game/cooking-game.componen
 import { PuzzleGameComponent } from './games/puzzle-game/puzzle-game.component';
 import { FightingGameComponent } from './games/fighting-game/fighting-game.component';
 import { ShootingGameComponent } from './games/shooting-game/shooting-game.component';
+import { TrainingComponent } from './training/training.component';
+import { SolutionsArchitectQuizComponent } from './training/solutions-architect-quiz/solutions-architect-quiz.component';
+import { DeveloperQuizComponent } from './training/developer-quiz/developer-quiz.component';
 
 // ng-zorro imports
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
@@ -53,7 +56,10 @@ registerLocaleData(en);
     CookingGameComponent,
     PuzzleGameComponent,
     FightingGameComponent,
-    ShootingGameComponent
+    ShootingGameComponent,
+    TrainingComponent,
+    SolutionsArchitectQuizComponent,
+    DeveloperQuizComponent
   ],
   imports: [
     BrowserModule,
