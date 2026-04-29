@@ -1,0 +1,40 @@
+.dashboard-container {
+  padding: 24px;
+  background-color: #f0f2f5;
+  min-height: 100vh;
+}
+
+h1 {
+  margin-bottom: 24px;
+  color: #001529;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.chart-card {
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.chart {
+  width: 100%;
+  height: 400px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 16px;
+  }
+  
+  h1 {
+    font-size: 24px;
+  }
+  
+  .chart {
+    height: 300px;
+  }
+}
+
+/* Made with Bob */
