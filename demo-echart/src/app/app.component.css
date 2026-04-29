@@ -1,12 +1,17 @@
 .app-layout {
   min-height: 100vh;
+  background: linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 100%);
 }
 
 .menu-sidebar {
   position: relative;
   z-index: 10;
   min-height: 100vh;
-  box-shadow: 2px 0 6px rgba(0,21,41,.35);
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.5);
+}
+
+:host ::ng-deep .menu-sidebar .ant-layout-sider-children {
+  background: linear-gradient(180deg, #001529 0%, #000c17 100%);
 }
 
 .sidebar-logo {
@@ -15,8 +20,9 @@
   padding-left: 24px;
   overflow: hidden;
   line-height: 64px;
-  background: #001529;
+  background: rgba(0, 0, 0, 0.3);
   transition: all .3s;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .sidebar-logo h1 {
@@ -27,48 +33,54 @@
   font-size: 20px;
   font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
   vertical-align: middle;
+  text-shadow: 0 0 10px rgba(84, 112, 198, 0.5);
 }
 
 nz-header {
   padding: 0;
   width: 100%;
   z-index: 9;
-  box-shadow: 0 1px 4px rgba(0,21,41,.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .app-header {
   padding: 0 24px;
-  background: #fff;
+  background: linear-gradient(90deg, rgba(26, 26, 46, 0.95) 0%, rgba(30, 30, 50, 0.95) 100%);
+  backdrop-filter: blur(10px);
   display: flex;
   align-items: center;
   height: 64px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .header-trigger {
   font-size: 20px;
   cursor: pointer;
   transition: color .3s;
+  color: #fff;
 }
 
 .header-trigger:hover {
-  color: #1890ff;
+  color: #5470c6;
 }
 
 .header-title {
   margin-left: 24px;
   font-size: 18px;
   font-weight: 600;
-  color: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  text-shadow: 0 0 10px rgba(84, 112, 198, 0.3);
 }
 
 nz-content {
-  margin: 24px;
+  margin: 0;
+  background: transparent;
 }
 
 .inner-content {
   padding: 0;
   background: transparent;
-  min-height: 360px;
+  min-height: calc(100vh - 64px);
 }
 
 :host ::ng-deep .trigger {
@@ -76,10 +88,25 @@ nz-content {
   line-height: 64px;
   cursor: pointer;
   transition: color 0.3s;
+  color: #fff;
 }
 
 :host ::ng-deep .trigger:hover {
-  color: #1890ff;
+  color: #5470c6;
+}
+
+/* Dark theme menu items */
+:host ::ng-deep .ant-menu-dark .ant-menu-item-selected {
+  background-color: rgba(84, 112, 198, 0.2);
+  border-left: 3px solid #5470c6;
+}
+
+:host ::ng-deep .ant-menu-dark .ant-menu-item:hover {
+  background-color: rgba(84, 112, 198, 0.1);
+}
+
+:host ::ng-deep .ant-menu-dark .ant-menu-submenu-title:hover {
+  background-color: rgba(84, 112, 198, 0.1);
 }
 
 /* Made with Bob */
