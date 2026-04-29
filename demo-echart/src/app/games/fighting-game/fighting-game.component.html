@@ -1,0 +1,178 @@
+<div class="game-container">
+  <!-- Start Screen -->
+  <div class="start-screen" *ngIf="gamePhase === 'start'">
+    <h1>👊 Mini Fighting Game</h1>
+    
+    <div class="instructions">
+      <h2>Cách chơi:</h2>
+      <div class="controls-grid">
+        <div class="control-item">
+          <div class="key">A</div>
+          <span>Di chuyển trái</span>
+        </div>
+        <div class="control-item">
+          <div class="key">D</div>
+          <span>Di chuyển phải</span>
+        </div>
+        <div class="control-item">
+          <div class="key">J</div>
+          <span>Đấm (10 damage)</span>
+        </div>
+        <div class="control-item">
+          <div class="key">K</div>
+          <span>Đá (15 damage)</span>
+        </div>
+      </div>
+      <ul>
+        <li>🎯 Hạ gục đối thủ AI để chiến thắng</li>
+        <li>💪 Mỗi kỹ năng có thời gian hồi chiêu</li>
+        <li>🛡️ Giữ khoảng cách và tấn công đúng lúc</li>
+        <li>⚡ AI sẽ tự động di chuyển và tấn công bạn</li>
+      </ul>
+    </div>
+
+    <button class="start-button" (click)="startGame()">Bắt đầu đấu</button>
+    <a routerLink="/games" class="back-button">← Quay lại</a>
+  </div>
+
+  <!-- Playing Screen -->
+  <div class="playing-screen" *ngIf="gamePhase === 'playing'">
+    <!-- HP Bars -->
+    <div class="hp-container">
+      <div class="hp-bar-wrapper player-hp">
+        <div class="fighter-name">{{ player.name }}</div>
+        <div class="hp-bar">
+          <div 
+            class="hp-fill"
+            [style.width.%]="getHPPercentage(player)"
+            [style.background-color]="getHPColor(player)">
+          </div>
+        </div>
+        <div class="hp-text">{{ player.hp }} / {{ player.maxHp }}</div>
+      </div>
+
+      <div class="vs-text">VS</div>
+
+      <div class="hp-bar-wrapper ai-hp">
+        <div class="fighter-name">{{ ai.name }}</div>
+        <div class="hp-bar">
+          <div 
+            class="hp-fill"
+            [style.width.%]="getHPPercentage(ai)"
+            [style.background-color]="getHPColor(ai)">
+          </div>
+        </div>
+        <div class="hp-text">{{ ai.hp }} / {{ ai.maxHp }}</div>
+      </div>
+    </div>
+
+    <!-- Fighting Arena -->
+    <div class="arena">
+      <div class="ground"></div>
+      
+      <!-- Player -->
+      <div 
+        class="fighter player-fighter"
+        [ngStyle]="getFighterStyle(player)"
+        [class.attacking]="player.isAttacking"
+        [class.hit]="player.isHit"
+        [class.punch]="player.attackType === 'punch'"
+        [class.kick]="player.attackType === 'kick'">
+        <div class="fighter-body">🤺</div>
+        <div class="attack-effect" *ngIf="player.isAttacking">
+          {{ player.attackType === 'punch' ? '👊' : '🦵' }}
+        </div>
+      </div>
+
+      <!-- AI -->
+      <div 
+        class="fighter ai-fighter"
+        [ngStyle]="getFighterStyle(ai)"
+        [class.attacking]="ai.isAttacking"
+        [class.hit]="ai.isHit"
+        [class.punch]="ai.attackType === 'punch'"
+        [class.kick]="ai.attackType === 'kick'">
+        <div class="fighter-body">🤖</div>
+        <div class="attack-effect" *ngIf="ai.isAttacking">
+          {{ ai.attackType === 'punch' ? '👊' : '🦵' }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Controls Display -->
+    <div class="controls-display">
+      <div class="control-button" [class.cooldown]="punchCooldown">
+        <div class="key-display">J</div>
+        <span>Đấm</span>
+      </div>
+      <div class="control-button" [class.cooldown]="kickCooldown">
+        <div class="key-display">K</div>
+        <span>Đá</span>
+      </div>
+    </div>
+
+    <div class="game-hint">
+      💡 Sử dụng A/D để di chuyển, J để đấm, K để đá
+    </div>
+  </div>
+
+  <!-- Win Screen -->
+  <div class="result-screen win-screen" *ngIf="gamePhase === 'won'">
+    <div class="result-container">
+      <div class="result-icon">🏆</div>
+      <h1>Chiến thắng!</h1>
+      <p class="result-message">Bạn đã hạ gục đối thủ AI!</p>
+      
+      <div class="victory-animation">
+        <div class="winner-fighter">🥷</div>
+        <div class="confetti">🎉</div>
+        <div class="confetti">🎊</div>
+        <div class="confetti">✨</div>
+      </div>
+
+      <div class="stats-display">
+        <div class="stat-item">
+          <span class="label">HP còn lại:</span>
+          <span class="value">{{ player.hp }}</span>
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button class="play-again-button" (click)="resetGame(); startGame()">
+          Đấu lại
+        </button>
+        <a routerLink="/games" class="back-button">Quay lại</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lose Screen -->
+  <div class="result-screen lose-screen" *ngIf="gamePhase === 'lost'">
+    <div class="result-container">
+      <div class="result-icon">💀</div>
+      <h1>Thua cuộc!</h1>
+      <p class="result-message">Bạn đã bị hạ gục bởi AI!</p>
+      
+      <div class="defeat-animation">
+        <div class="loser-fighter">🥷</div>
+        <div class="ko-text">K.O!</div>
+      </div>
+
+      <div class="stats-display">
+        <div class="stat-item">
+          <span class="label">HP đối thủ còn:</span>
+          <span class="value">{{ ai.hp }}</span>
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button class="play-again-button" (click)="resetGame(); startGame()">
+          Thử lại
+        </button>
+        <a routerLink="/games" class="back-button">Quay lại</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Made with Bob -->

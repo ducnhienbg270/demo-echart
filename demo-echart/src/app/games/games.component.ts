@@ -30,6 +30,13 @@ export class GamesComponent {
       difficulty: 'Medium'
     },
     {
+      title: 'Mini Fighting Game',
+      description: 'Đấu 1 vs 1 với AI! Sử dụng đấm và đá để hạ gục đối thủ.',
+      route: '/games/fighting',
+      icon: '👊',
+      difficulty: 'Hard'
+    },
+    {
       title: 'Coming Soon',
       description: 'More games will be added here!',
       route: '#',
