@@ -1,0 +1,197 @@
+<div class="game-container">
+  <!-- Setup Screen -->
+  <div class="setup-screen" *ngIf="gamePhase === 'setup'">
+    <h1>🧩 Ghép Hình</h1>
+    
+    <div class="instructions">
+      <h2>Cách chơi:</h2>
+      <ul>
+        <li>📤 Upload ảnh từ máy tính của bạn</li>
+        <li>🎯 Chọn độ khó (3×3, 4×4, hoặc 5×5)</li>
+        <li>⬆️⬇️⬅️➡️ Dùng phím mũi tên hoặc click để di chuyển</li>
+        <li>⏱️ Hoàn thành trước khi hết giờ!</li>
+        <li>👁️ Giữ nút "Xem ảnh gốc" để xem gợi ý</li>
+      </ul>
+    </div>
+
+    <div class="upload-section" *ngIf="!selectedImage">
+      <div class="upload-box">
+        <input 
+          type="file" 
+          id="imageUpload" 
+          accept="image/*" 
+          (change)="onFileSelected($event)"
+          style="display: none">
+        <label for="imageUpload" class="upload-label">
+          <div class="upload-icon">📷</div>
+          <p>Click để chọn ảnh</p>
+          <span class="upload-hint">Hỗ trợ: JPG, PNG, GIF</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="image-preview" *ngIf="selectedImage">
+      <img [src]="selectedImage" alt="Selected image">
+      
+      <div class="difficulty-selector">
+        <h3>Chọn độ khó:</h3>
+        <div class="difficulty-buttons">
+          <button 
+            [class.active]="gridSize === 3"
+            (click)="changeGridSize(3)">
+            Dễ (3×3)
+          </button>
+          <button 
+            [class.active]="gridSize === 4"
+            (click)="changeGridSize(4)">
+            Trung bình (4×4)
+          </button>
+          <button 
+            [class.active]="gridSize === 5"
+            (click)="changeGridSize(5)">
+            Khó (5×5)
+          </button>
+        </div>
+      </div>
+
+      <button class="start-button" (click)="startGame()">
+        Bắt đầu chơi
+      </button>
+      
+      <button class="change-image-button" (click)="resetGame()">
+        Đổi ảnh khác
+      </button>
+    </div>
+
+    <a routerLink="/games" class="back-button">← Quay lại</a>
+  </div>
+
+  <!-- Playing Screen -->
+  <div class="playing-screen" *ngIf="gamePhase === 'playing'">
+    <div class="game-header">
+      <div class="stat">
+        <span class="label">Thời gian:</span>
+        <span class="value timer" [style.color]="getTimerColor()">
+          {{ formatTime(timeLeft) }}
+        </span>
+      </div>
+      <div class="stat">
+        <span class="label">Số bước:</span>
+        <span class="value">{{ moves }}</span>
+      </div>
+      <div class="stat">
+        <span class="label">Độ khó:</span>
+        <span class="value">{{ gridSize }}×{{ gridSize }}</span>
+      </div>
+    </div>
+
+    <div class="game-content">
+      <div class="puzzle-container">
+        <div class="puzzle-board" [style.width.px]="450" [style.height.px]="450">
+          <div 
+            *ngFor="let tile of tiles"
+            class="puzzle-tile"
+            [class.correct]="isTileCorrect(tile)"
+            [class.clickable]="canMoveTile(tile.position)"
+            [ngStyle]="getTileStyle(tile)"
+            (click)="moveTile(tile.position)">
+          </div>
+        </div>
+      </div>
+
+      <div class="game-controls">
+        <button 
+          class="hint-button"
+          (mousedown)="showOriginalImage = true"
+          (mouseup)="showOriginalImage = false"
+          (mouseleave)="showOriginalImage = false"
+          (touchstart)="showOriginalImage = true"
+          (touchend)="showOriginalImage = false">
+          👁️ Giữ để xem ảnh gốc
+        </button>
+        
+        <div class="keyboard-hint">
+          <p>💡 Dùng phím ⬆️ ⬇️ ⬅️ ➡️ để di chuyển</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Win Screen -->
+  <div class="result-screen win-screen" *ngIf="gamePhase === 'won'">
+    <div class="result-container">
+      <div class="confetti">🎉</div>
+      <div class="result-icon">🏆</div>
+      <h1>Chúc mừng!</h1>
+      <p class="result-message">Bạn đã hoàn thành ghép hình!</p>
+      
+      <div class="completed-image">
+        <img [src]="originalImage" alt="Completed puzzle">
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-item">
+          <span class="stat-label">Thời gian:</span>
+          <span class="stat-value">{{ getCompletionTime() }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Số bước:</span>
+          <span class="stat-value">{{ moves }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Độ khó:</span>
+          <span class="stat-value">{{ gridSize }}×{{ gridSize }}</span>
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button class="play-again-button" (click)="resetGame()">
+          Chơi lại
+        </button>
+        <a routerLink="/games" class="back-button">Quay lại</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lose Screen -->
+  <div class="result-screen lose-screen" *ngIf="gamePhase === 'lost'">
+    <div class="result-container">
+      <div class="result-icon">⏰</div>
+      <h1>Hết giờ!</h1>
+      <p class="result-message">Bạn đã hết thời gian</p>
+      
+      <div class="completed-image">
+        <img [src]="originalImage" alt="Original image">
+        <p class="image-caption">Đây là ảnh gốc</p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-item">
+          <span class="stat-label">Số bước:</span>
+          <span class="stat-value">{{ moves }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Độ khó:</span>
+          <span class="stat-value">{{ gridSize }}×{{ gridSize }}</span>
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button class="play-again-button" (click)="resetGame()">
+          Thử lại
+        </button>
+        <a routerLink="/games" class="back-button">Quay lại</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Original Image Overlay -->
+  <div class="original-image-overlay" *ngIf="showOriginalImage && gamePhase === 'playing'">
+    <div class="overlay-content">
+      <img [src]="originalImage" alt="Original image">
+      <p>Ảnh gốc</p>
+    </div>
+  </div>
+</div>
+
+<!-- Made with Bob -->

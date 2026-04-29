@@ -13,6 +13,7 @@ import { TradingComponent } from './trading/trading.component';
 import { GamesComponent } from './games/games.component';
 import { RedButtonComponent } from './games/red-button/red-button.component';
 import { CookingGameComponent } from './games/cooking-game/cooking-game.component';
+import { PuzzleGameComponent } from './games/puzzle-game/puzzle-game.component';
 
 // ng-zorro imports
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
@@ -47,7 +48,8 @@ registerLocaleData(en);
     TradingComponent,
     GamesComponent,
     RedButtonComponent,
-    CookingGameComponent
+    CookingGameComponent,
+    PuzzleGameComponent
   ],
   imports: [
     BrowserModule,

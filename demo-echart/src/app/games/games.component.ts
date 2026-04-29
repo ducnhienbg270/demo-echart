@@ -23,6 +23,13 @@ export class GamesComponent {
       difficulty: 'Medium'
     },
     {
+      title: 'Ghép Hình',
+      description: 'Upload ảnh và ghép lại các mảnh trước khi hết giờ! Thử thách trí nhớ và tốc độ.',
+      route: '/games/puzzle',
+      icon: '🧩',
+      difficulty: 'Medium'
+    },
+    {
       title: 'Coming Soon',
       description: 'More games will be added here!',
       route: '#',

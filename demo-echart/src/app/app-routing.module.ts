@@ -6,6 +6,7 @@ import { TradingComponent } from './trading/trading.component';
 import { GamesComponent } from './games/games.component';
 import { RedButtonComponent } from './games/red-button/red-button.component';
 import { CookingGameComponent } from './games/cooking-game/cooking-game.component';
+import { PuzzleGameComponent } from './games/puzzle-game/puzzle-game.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -14,7 +15,8 @@ const routes: Routes = [
   { path: 'trading', component: TradingComponent },
   { path: 'games', component: GamesComponent },
   { path: 'games/red-button', component: RedButtonComponent },
-  { path: 'games/cooking', component: CookingGameComponent }
+  { path: 'games/cooking', component: CookingGameComponent },
+  { path: 'games/puzzle', component: PuzzleGameComponent }
 ];
 
 @NgModule({
