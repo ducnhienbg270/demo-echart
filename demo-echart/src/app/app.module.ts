@@ -15,6 +15,9 @@ import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 // ngx-echarts imports
 import { NgxEchartsModule } from 'ngx-echarts';
@@ -34,6 +37,9 @@ registerLocaleData(en);
     AppRoutingModule,
     NzGridModule,
     NzCardModule,
+    NzLayoutModule,
+    NzMenuModule,
+    NzIconModule,
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts')
     })

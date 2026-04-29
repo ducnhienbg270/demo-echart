@@ -1,7 +1,7 @@
 .dashboard-container {
-  padding: 24px;
-  background-color: #f0f2f5;
-  min-height: 100vh;
+  padding: 0;
+  background-color: transparent;
+  min-height: calc(100vh - 112px);
 }
 
 h1 {
