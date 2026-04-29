@@ -1,0 +1,66 @@
+<div class="game-container">
+  <!-- Start Screen -->
+  <div class="start-screen" *ngIf="!gameStarted && !gameOver">
+    <h1>🔴 Bạn muốn tăng lương!</h1>
+    <div class="instructions">
+      <h2>Rules:</h2>
+      <ul>
+        <li>Survive for 30 seconds without clicking the red button</li>
+        <li>The button will try to trick you!</li>
+        <li>Earn bonus points by dodging the button</li>
+        <li>Good luck... you'll need it! 😈</li>
+      </ul>
+    </div>
+    <button class="start-button" (click)="startGame()">Start Game</button>
+    <a routerLink="/games" class="back-button">← Back to Games</a>
+  </div>
+
+  <!-- Game Screen -->
+  <div class="game-screen" *ngIf="gameStarted && !gameOver">
+    <div class="game-header">
+      <div class="stat">
+        <span class="label">Time:</span>
+        <span class="value timer">{{ timer }}s</span>
+      </div>
+      <div class="stat">
+        <span class="label">Score:</span>
+        <span class="value">{{ score }}</span>
+      </div>
+    </div>
+
+    <div class="game-area">
+      <button 
+        class="red-button"
+        [ngStyle]="getButtonStyle()"
+        (mouseenter)="onButtonHover()"
+        (click)="onButtonClick()">
+        {{ buttonText }}
+      </button>
+    </div>
+
+    <div class="game-tips">
+      <p>💡 Tip: Don't let the button fool you!</p>
+    </div>
+  </div>
+
+  <!-- Game Over Screen -->
+  <div class="game-over-screen" *ngIf="gameOver">
+    <div class="result-container" [class.win]="won" [class.lose]="!won">
+      <div class="result-icon">{{ won ? '🎉' : '💥' }}</div>
+      <h1>{{ won ? 'YOU WON!' : 'GAME OVER!' }}</h1>
+      <p class="result-message">
+        {{ won ? 'Congratulations! You resisted the temptation!' : 'You clicked the red button! 😱' }}
+      </p>
+      <div class="final-score">
+        <span class="label">Final Score:</span>
+        <span class="value">{{ score }}</span>
+      </div>
+      <div class="button-group">
+        <button class="play-again-button" (click)="resetGame(); startGame()">
+          Play Again
+        </button>
+        <a routerLink="/games" class="back-button">Back to Games</a>
+      </div>
+    </div>
+  </div>
+</div>

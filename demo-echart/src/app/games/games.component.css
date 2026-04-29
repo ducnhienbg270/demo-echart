@@ -1,0 +1,127 @@
+.games-container {
+  padding: 40px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.games-header {
+  text-align: center;
+  margin-bottom: 50px;
+  color: white;
+}
+
+.games-header h1 {
+  font-size: 48px;
+  margin: 0 0 10px 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.games-header p {
+  font-size: 20px;
+  opacity: 0.9;
+}
+
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.game-card {
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.game-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.game-icon {
+  font-size: 80px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.game-card h3 {
+  font-size: 24px;
+  margin: 0 0 15px 0;
+  color: #333;
+}
+
+.game-description {
+  color: #666;
+  font-size: 14px;
+  line-height: 1.6;
+  flex: 1;
+  margin-bottom: 20px;
+}
+
+.game-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+
+.difficulty {
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  background: #e0e0e0;
+  color: #666;
+}
+
+.difficulty.easy {
+  background: #4caf50;
+  color: white;
+}
+
+.play-button {
+  padding: 10px 25px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.play-button:hover:not(.disabled) {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.play-button.disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+@media (max-width: 768px) {
+  .games-container {
+    padding: 20px;
+  }
+
+  .games-header h1 {
+    font-size: 36px;
+  }
+
+  .games-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Made with Bob */

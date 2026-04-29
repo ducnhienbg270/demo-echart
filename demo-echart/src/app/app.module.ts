@@ -10,6 +10,8 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MapComponent } from './map/map.component';
 import { TradingComponent } from './trading/trading.component';
+import { GamesComponent } from './games/games.component';
+import { RedButtonComponent } from './games/red-button/red-button.component';
 
 // ng-zorro imports
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
@@ -41,7 +43,9 @@ registerLocaleData(en);
     AppComponent,
     DashboardComponent,
     MapComponent,
-    TradingComponent
+    TradingComponent,
+    GamesComponent,
+    RedButtonComponent
   ],
   imports: [
     BrowserModule,

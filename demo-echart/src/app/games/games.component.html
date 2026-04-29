@@ -1,0 +1,25 @@
+<div class="games-container">
+  <div class="games-header">
+    <h1>🎮 Game Center</h1>
+    <p>Choose a game to play!</p>
+  </div>
+
+  <div class="games-grid">
+    <div class="game-card" *ngFor="let game of games">
+      <div class="game-icon">{{ game.icon }}</div>
+      <h3>{{ game.title }}</h3>
+      <p class="game-description">{{ game.description }}</p>
+      <div class="game-footer">
+        <span class="difficulty" [class.easy]="game.difficulty === 'Easy'">
+          {{ game.difficulty }}
+        </span>
+        <a *ngIf="game.route !== '#'" [routerLink]="game.route" class="play-button">
+          Play Now
+        </a>
+        <button *ngIf="game.route === '#'" class="play-button disabled" disabled>
+          Coming Soon
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
