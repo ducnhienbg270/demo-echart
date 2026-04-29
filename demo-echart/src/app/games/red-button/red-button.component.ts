@@ -10,7 +10,7 @@ export class RedButtonComponent implements OnInit, OnDestroy {
   gameOver = false;
   won = false;
   score = 0;
-  timer = 30;
+  timer = 3;
   buttonText = "Tăng lương";
   buttonColor = 'red';
   buttonPosition = { top: '50%', left: '50%' };
@@ -46,7 +46,7 @@ export class RedButtonComponent implements OnInit, OnDestroy {
     this.gameOver = false;
     this.won = false;
     this.score = 0;
-    this.timer = 30;
+    this.timer = 3;
     
     // Start timer
     this.timerInterval = setInterval(() => {
@@ -110,7 +110,8 @@ export class RedButtonComponent implements OnInit, OnDestroy {
 
   winGame(): void {
     this.gameOver = true;
-    this.won = true;
+    // this.won = true;
+    this.won = false;
     this.score += 100;
     this.clearAllIntervals();
   }
@@ -121,7 +122,7 @@ export class RedButtonComponent implements OnInit, OnDestroy {
     this.gameOver = false;
     this.won = false;
     this.score = 0;
-    this.timer = 30;
+    this.timer = 3;
     this.buttonText = "Tăng lương";
     this.buttonColor = 'red';
     this.buttonPosition = { top: '50%', left: '50%' };

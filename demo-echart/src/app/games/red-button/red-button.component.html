@@ -5,10 +5,11 @@
     <div class="instructions">
       <h2>Rules:</h2>
       <ul>
-        <li>Survive for 30 seconds without clicking the red button</li>
+        <!-- <li>Survive for 30 seconds without clicking the red button</li>
         <li>The button will try to trick you!</li>
         <li>Earn bonus points by dodging the button</li>
-        <li>Good luck... you'll need it! 😈</li>
+        <li>Good luck... you'll need it! 😈</li> -->
+        <li>Click nếu bạn muốn được tăng lương trong tháng tới</li>
       </ul>
     </div>
     <button class="start-button" (click)="startGame()">Start Game</button>
@@ -49,7 +50,9 @@
       <div class="result-icon">{{ won ? '🎉' : '💥' }}</div>
       <h1>{{ won ? 'YOU WON!' : 'GAME OVER!' }}</h1>
       <p class="result-message">
-        {{ won ? 'Congratulations! You resisted the temptation!' : 'You clicked the red button! 😱' }}
+        <!-- {{ won ? 'Congratulations! You resisted the temptation!' : 'You clicked the red button! 😱' }} -->
+          {{ won ? 'Bạn được tăng lương' : 'Bạn không được tăng lương' }} 
+
       </p>
       <div class="final-score">
         <span class="label">Final Score:</span>

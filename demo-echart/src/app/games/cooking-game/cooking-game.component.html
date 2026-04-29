@@ -1,0 +1,165 @@
+<div class="game-container">
+  <!-- Start Screen -->
+  <div class="start-screen" *ngIf="gamePhase === 'start'">
+    <h1>🍖 Nấu Sườn Nướng Mật Ong</h1>
+    <div class="instructions">
+      <h2>Cách chơi:</h2>
+      <ul>
+        <li>🍯 <strong>Ướp sườn:</strong> Click đúng thứ tự nguyên liệu: Mật ong → Tỏi → Nước mắm</li>
+        <li>🔥 <strong>Nướng sườn:</strong> Bấm đúng lúc khi thanh nhiệt ở vùng PERFECT</li>
+        <li>⭐ <strong>Kết quả:</strong> PERFECT = vàng đẹp, OK = ăn được, FAIL = cháy đen</li>
+        <li>🎯 Hoàn thành 3 đơn hàng để thắng!</li>
+      </ul>
+    </div>
+    <button class="start-button" (click)="startGame()">Bắt đầu nấu</button>
+    <a routerLink="/games" class="back-button">← Quay lại</a>
+  </div>
+
+  <!-- Order Phase -->
+  <div class="order-screen" *ngIf="gamePhase === 'order'">
+    <div class="order-notification">
+      <div class="order-icon">📋</div>
+      <h2>Đơn hàng mới!</h2>
+      <p>Khách hàng đặt: <strong>Sườn nướng mật ong</strong></p>
+      <div class="order-progress">
+        Đơn {{ completedOrders + 1 }}/{{ totalOrders }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Marinating Phase -->
+  <div class="marinating-screen" *ngIf="gamePhase === 'marinating'">
+    <div class="game-header">
+      <div class="stat">
+        <span class="label">Điểm:</span>
+        <span class="value">{{ score }}</span>
+      </div>
+      <div class="stat">
+        <span class="label">Đơn hàng:</span>
+        <span class="value">{{ completedOrders }}/{{ totalOrders }}</span>
+      </div>
+    </div>
+
+    <h2 class="phase-title">🍖 Ướp Sườn</h2>
+    <p class="phase-instruction">Click đúng thứ tự: Mật ong → Tỏi → Nước mắm</p>
+
+    <div class="ribs-container">
+      <div class="ribs" [class.marinated]="marinatingComplete" [class.error]="marinatingError">
+        🥩
+      </div>
+      <div class="glow-effect" *ngIf="marinatingComplete"></div>
+    </div>
+
+    <div class="ingredients-container">
+      <button 
+        *ngFor="let ingredient of ingredients"
+        class="ingredient-button"
+        [class.selected]="isIngredientSelected(ingredient)"
+        [class.disabled]="marinatingComplete || marinatingError"
+        (click)="selectIngredient(ingredient)">
+        <div class="ingredient-icon">{{ ingredient.icon }}</div>
+        <div class="ingredient-name">{{ ingredient.name }}</div>
+      </button>
+    </div>
+
+    <div class="status-message" *ngIf="marinatingComplete" class="success-message">
+      ✅ Đã ướp xong! Chuẩn bị nướng...
+    </div>
+    <div class="status-message" *ngIf="marinatingError" class="error-message">
+      ❌ Sai thứ tự! Thử lại...
+    </div>
+  </div>
+
+  <!-- Grilling Phase -->
+  <div class="grilling-screen" *ngIf="gamePhase === 'grilling'">
+    <div class="game-header">
+      <div class="stat">
+        <span class="label">Điểm:</span>
+        <span class="value">{{ score }}</span>
+      </div>
+      <div class="stat">
+        <span class="label">Đơn hàng:</span>
+        <span class="value">{{ completedOrders }}/{{ totalOrders }}</span>
+      </div>
+    </div>
+
+    <h2 class="phase-title">🔥 Nướng Sườn</h2>
+    <p class="phase-instruction">Bấm khi thanh nhiệt ở vùng màu xanh!</p>
+
+    <div class="grill-container">
+      <div class="ribs-on-grill" [ngClass]="getRibsClass()">
+        🍖
+      </div>
+      <div class="fire-effect" *ngIf="showFire">
+        <span class="flame">🔥</span>
+        <span class="flame">🔥</span>
+        <span class="flame">🔥</span>
+      </div>
+      <div class="smoke-effect" *ngIf="showSmoke">
+        <span class="smoke">💨</span>
+        <span class="smoke">💨</span>
+        <span class="smoke">💨</span>
+      </div>
+    </div>
+
+    <div class="heat-bar-container" *ngIf="!grillingResult">
+      <div class="heat-bar-track">
+        <div class="zone fail-zone"></div>
+        <div class="zone ok-zone" [style.left.%]="okZoneStart" [style.width.%]="okZoneEnd - okZoneStart"></div>
+        <div class="zone perfect-zone" [style.left.%]="perfectZoneStart" [style.width.%]="perfectZoneEnd - perfectZoneStart"></div>
+        <div class="heat-indicator" [ngStyle]="getHeatBarStyle()"></div>
+      </div>
+      <button class="grill-button" (click)="clickGrill()">
+        🔥 NƯỚNG NGAY!
+      </button>
+    </div>
+
+    <div class="grilling-result" *ngIf="grillingResult">
+      <div class="result-icon">{{ getResultIcon() }}</div>
+      <h3>{{ grillingResult }}</h3>
+      <p>{{ getResultMessage() }}</p>
+    </div>
+  </div>
+
+  <!-- Result Phase -->
+  <div class="result-screen" *ngIf="gamePhase === 'result'">
+    <div class="result-container">
+      <div class="result-icon-large">{{ getResultIcon() }}</div>
+      <h2>{{ grillingResult }}</h2>
+      <p class="result-message">{{ getResultMessage() }}</p>
+      
+      <div class="ribs-display" [ngClass]="getRibsClass()">
+        🍖
+      </div>
+
+      <div class="score-display">
+        <span class="label">Điểm hiện tại:</span>
+        <span class="value">{{ score }}</span>
+      </div>
+
+      <div class="progress-info" *ngIf="completedOrders < totalOrders">
+        <p>Đang chuẩn bị đơn tiếp theo...</p>
+        <div class="progress-bar">
+          <div class="progress-fill" [style.width.%]="(completedOrders / totalOrders) * 100"></div>
+        </div>
+      </div>
+
+      <div class="game-complete" *ngIf="completedOrders >= totalOrders">
+        <h1>🎉 Hoàn thành!</h1>
+        <p>Bạn đã hoàn thành tất cả {{ totalOrders }} đơn hàng!</p>
+        <div class="final-score">
+          <span class="label">Tổng điểm:</span>
+          <span class="value">{{ score }}</span>
+        </div>
+        <div class="button-group">
+          <button class="play-again-button" (click)="resetGame(); startGame()">
+            Chơi lại
+          </button>
+          <a routerLink="/games" class="back-button">Quay lại</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Made with Bob -->

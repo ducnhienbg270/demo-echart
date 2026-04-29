@@ -8,11 +8,19 @@ import { Component } from '@angular/core';
 export class GamesComponent {
   games = [
     {
-      title: "Don't Click the Red Button",
+      // title: "Don't Click the Red Button",
+      title: 'Bạn muốn Tăng Lương',
       description: "A simple game... or is it? Try not to click the red button!",
       route: '/games/red-button',
       icon: '🔴',
       difficulty: 'Easy'
+    },
+    {
+      title: 'Nấu Sườn Nướng Mật Ong',
+      description: 'Trở thành đầu bếp chuyên nghiệp! Ướp và nướng sườn để phục vụ khách hàng.',
+      route: '/games/cooking',
+      icon: '🍖',
+      difficulty: 'Medium'
     },
     {
       title: 'Coming Soon',
