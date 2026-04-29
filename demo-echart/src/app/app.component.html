@@ -7,8 +7,10 @@
       <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="dashboard">
         <ul>
           <li nz-menu-item nzMatchRouter>
-            <span nz-icon nzType="pie-chart"></span>
-            <span>Analytics</span>
+            <a routerLink="/dashboard">
+              <span nz-icon nzType="pie-chart"></span>
+              <span>Analytics</span>
+            </a>
           </li>
           <li nz-menu-item>
             <span nz-icon nzType="bar-chart"></span>
@@ -31,6 +33,12 @@
             <span>Pie Charts</span>
           </li>
         </ul>
+      </li>
+      <li nz-menu-item nzMatchRouter>
+        <a routerLink="/map">
+          <span nz-icon nzType="global"></span>
+          <span>Map</span>
+        </a>
       </li>
       <li nz-menu-item>
         <span nz-icon nzType="table"></span>
@@ -57,7 +65,7 @@
     </nz-header>
     <nz-content>
       <div class="inner-content">
-        <app-dashboard></app-dashboard>
+        <router-outlet></router-outlet>
       </div>
     </nz-content>
   </nz-layout>

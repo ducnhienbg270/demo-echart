@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { MapComponent } from './map/map.component';
 
 // ng-zorro imports
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
@@ -19,15 +20,25 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 
+// Import icons
+import { IconDefinition } from '@ant-design/icons-angular';
+import * as AllIcons from '@ant-design/icons-angular/icons';
+
 // ngx-echarts imports
 import { NgxEchartsModule } from 'ngx-echarts';
+
+const antDesignIcons = AllIcons as {
+  [key: string]: IconDefinition;
+};
+const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesignIcons[key]);
 
 registerLocaleData(en);
 
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardComponent
+    DashboardComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +50,7 @@ registerLocaleData(en);
     NzCardModule,
     NzLayoutModule,
     NzMenuModule,
-    NzIconModule,
+    NzIconModule.forRoot(icons),
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts')
     })
