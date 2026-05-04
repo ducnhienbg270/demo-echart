@@ -9,7 +9,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { MapComponent } from './map/map.component';
 import { TradingComponent } from './trading/trading.component';
 import { GamesComponent } from './games/games.component';
 import { RedButtonComponent } from './games/red-button/red-button.component';
@@ -51,7 +50,6 @@ registerLocaleData(en);
     AppComponent,
     WelcomeComponent,
     DashboardComponent,
-    MapComponent,
     TradingComponent,
     GamesComponent,
     RedButtonComponent,
