@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { WelcomeComponent } from './welcome/welcome.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MapComponent } from './map/map.component';
 import { TradingComponent } from './trading/trading.component';
@@ -13,7 +14,8 @@ import { TrainingComponent } from './training/training.component';
 import { SolutionsArchitectQuizComponent } from './training/solutions-architect-quiz/solutions-architect-quiz.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: '/welcome', pathMatch: 'full' },
+  { path: 'welcome', component: WelcomeComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'map', component: MapComponent },
   { path: 'trading', component: TradingComponent },

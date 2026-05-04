@@ -17,12 +17,56 @@
 .sidebar-logo {
   position: relative;
   height: 64px;
-  padding-left: 24px;
+  padding: 0 24px;
   overflow: hidden;
-  line-height: 64px;
   background: rgba(0, 0, 0, 0.3);
   transition: all .3s;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-logo:hover {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.logo-icon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 8px rgba(102, 126, 234, 0.5));
+  animation: logoFloat 3s ease-in-out infinite;
+}
+
+@keyframes logoFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+.logo-text {
+  color: #fff;
+  font-weight: 700;
+  font-size: 18px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  letter-spacing: 0.5px;
+  text-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+  white-space: nowrap;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .sidebar-logo h1 {

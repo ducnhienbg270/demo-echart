@@ -1,7 +1,20 @@
 <nz-layout class="app-layout">
   <nz-sider class="menu-sidebar" nzCollapsible nzWidth="256px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed">
-    <div class="sidebar-logo">
-      <h1>Dashboard</h1>
+    <div class="sidebar-logo" routerLink="/welcome">
+      <div class="logo-container">
+        <svg class="logo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+            </linearGradient>
+          </defs>
+          <circle cx="50" cy="50" r="45" fill="url(#logoGradient)" opacity="0.2"/>
+          <path d="M 30 50 L 50 30 L 70 50 L 50 70 Z" fill="url(#logoGradient)" stroke="#fff" stroke-width="2"/>
+          <circle cx="50" cy="50" r="8" fill="#fff"/>
+        </svg>
+        <span class="logo-text">Nhiên ND</span>
+      </div>
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
       <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="dashboard">
@@ -13,8 +26,10 @@
             </a>
           </li>
           <li nz-menu-item>
-            <span nz-icon nzType="bar-chart"></span>
-            <span>Reports</span>
+            <a>
+              <span nz-icon nzType="bar-chart"></span>
+              <span>Reports</span>
+            </a>
           </li>
         </ul>
       </li>

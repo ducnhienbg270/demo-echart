@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MapComponent } from './map/map.component';
 import { TradingComponent } from './trading/trading.component';
@@ -48,6 +49,7 @@ registerLocaleData(en);
 @NgModule({
   declarations: [
     AppComponent,
+    WelcomeComponent,
     DashboardComponent,
     MapComponent,
     TradingComponent,
