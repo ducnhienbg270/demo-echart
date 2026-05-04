@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TradingComponent } from './trading/trading.component';
+import { PricesComponent } from './prices/prices.component';
 import { GamesComponent } from './games/games.component';
 import { RedButtonComponent } from './games/red-button/red-button.component';
 import { CookingGameComponent } from './games/cooking-game/cooking-game.component';
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'welcome', component: WelcomeComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'trading', component: TradingComponent },
+  { path: 'prices', component: PricesComponent },
   { path: 'games', component: GamesComponent },
   { path: 'games/red-button', component: RedButtonComponent },
   { path: 'games/cooking', component: CookingGameComponent },

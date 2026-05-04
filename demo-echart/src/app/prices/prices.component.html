@@ -1,0 +1,70 @@
+<div class="prices-container">
+  <div class="header">
+    <h2>
+      <span nz-icon nzType="line-chart" nzTheme="outline"></span>
+      Theo dõi giá
+    </h2>
+    <div class="last-update">
+      <span nz-icon nzType="clock-circle" nzTheme="outline"></span>
+      Cập nhật: {{ lastUpdate | date:'HH:mm:ss' }}
+    </div>
+  </div>
+
+  <!-- Gasoline Prices Section -->
+  <div class="section">
+    <h3 class="section-title">
+      <span nz-icon nzType="fire" nzTheme="outline"></span>
+      Giá Xăng Dầu
+    </h3>
+    <nz-row [nzGutter]="[16, 16]">
+      <nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="6" *ngFor="let item of gasolinePrices">
+        <nz-card class="price-card gasoline-card">
+          <div class="card-header">
+            <span nz-icon [nzType]="item.icon" nzTheme="outline" [style.color]="item.color"></span>
+            <h4>{{ item.name }}</h4>
+          </div>
+          <div class="price-value">
+            {{ formatPrice(item.price) }}
+            <span class="unit">{{ item.unit }}</span>
+          </div>
+          <div class="price-change" [ngClass]="getChangeClass(item.change)">
+            <span nz-icon [nzType]="getChangeIcon(item.change)" nzTheme="outline"></span>
+            {{ formatPrice(Math.abs(item.change)) }} ({{ item.changePercent }}%)
+          </div>
+        </nz-card>
+      </nz-col>
+    </nz-row>
+  </div>
+
+  <!-- Gold Prices Section -->
+  <div class="section">
+    <h3 class="section-title">
+      <span nz-icon nzType="gold" nzTheme="outline"></span>
+      Giá Vàng
+    </h3>
+    <nz-row [nzGutter]="[16, 16]">
+      <nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="8" *ngFor="let item of goldPrices">
+        <nz-card class="price-card gold-card">
+          <div class="card-header">
+            <span nz-icon [nzType]="item.icon" nzTheme="outline" [style.color]="item.color"></span>
+            <h4>{{ item.name }}</h4>
+          </div>
+          <div class="price-value">
+            {{ formatPrice(item.price) }}
+            <span class="unit">{{ item.unit }}</span>
+          </div>
+          <div class="price-change" [ngClass]="getChangeClass(item.change)">
+            <span nz-icon [nzType]="getChangeIcon(item.change)" nzTheme="outline"></span>
+            {{ formatPrice(Math.abs(item.change)) }} ({{ item.changePercent }}%)
+          </div>
+        </nz-card>
+      </nz-col>
+    </nz-row>
+  </div>
+
+  <!-- Info Note -->
+  <div class="info-note">
+    <span nz-icon nzType="info-circle" nzTheme="outline"></span>
+    Giá cập nhật tự động mỗi 5 giây. Đây là dữ liệu mô phỏng cho mục đích demo.
+  </div>
+</div>

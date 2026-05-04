@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TradingComponent } from './trading/trading.component';
+import { PricesComponent } from './prices/prices.component';
 import { GamesComponent } from './games/games.component';
 import { RedButtonComponent } from './games/red-button/red-button.component';
 import { CookingGameComponent } from './games/cooking-game/cooking-game.component';
@@ -51,6 +52,7 @@ registerLocaleData(en);
     WelcomeComponent,
     DashboardComponent,
     TradingComponent,
+    PricesComponent,
     GamesComponent,
     RedButtonComponent,
     CookingGameComponent,
