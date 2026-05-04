@@ -246,6 +246,126 @@ export const SOLUTIONS_ARCHITECT_QUESTIONS: QuizQuestion[] = [
     ],
     correctAnswer: 1,
     explanation: "Amazon Athena allows running SQL queries directly on data in S3 without loading it into a database, using a serverless architecture."
+  },
+  {
+    id: 21,
+    question: "A company collects data for temperature, humidity, and atmospheric pressure in cities across multiple continents. The average volume of data that the company collects from each site daily is 500 GB. Each site has a high-speed Internet connection. The company wants to aggregate the data from all these global sites as quickly as possible in a single Amazon S3 bucket. The solution must minimize operational complexity. Which solution meets these requirements?",
+    options: [
+      "Use AWS DataSync to transfer data from each site to S3",
+      "Turn on S3 Transfer Acceleration on the destination S3 bucket. Use multipart uploads to directly upload site data to the destination S3 bucket",
+      "Use AWS Direct Connect from each site to AWS",
+      "Create an AWS Storage Gateway at each site to transfer data to S3"
+    ],
+    correctAnswer: 1,
+    explanation: "S3 Transfer Acceleration uses Edge Locations to speed up content transfers to and from S3 by as much as 50-500%. It's ideal for long-distance transfers and works with multipart uploads for large files, minimizing operational complexity."
+  },
+  {
+    id: 22,
+    question: "A company needs the ability to analyze the log files of its proprietary application. The logs are stored in JSON format in an Amazon S3 bucket. Queries will be simple and will run on-demand. A solutions architect needs to perform the analysis with minimal changes to the existing architecture. What should the solutions architect do to meet these requirements with the LEAST amount of operational overhead?",
+    options: [
+      "Use Amazon EMR to analyze the logs",
+      "Use Amazon Athena directly with Amazon S3 to run the queries as needed",
+      "Use Amazon Redshift to load and analyze the logs",
+      "Use AWS Glue to catalog and query the logs"
+    ],
+    correctAnswer: 1,
+    explanation: "Amazon Athena is an interactive query service that makes it easy to analyze data directly in Amazon S3 using standard SQL. With minimal setup, you can point Athena at your data stored in S3 and begin using standard SQL to run ad-hoc queries and get results in seconds."
+  },
+  {
+    id: 23,
+    question: "A company uses AWS Organizations to manage multiple AWS accounts for different departments. The management account has an Amazon S3 bucket that contains project reports. The company wants to limit access to this S3 bucket to only users of accounts within the organization in AWS Organizations. Which solution meets these requirements with the LEAST amount of operational overhead?",
+    options: [
+      "Add an IAM policy to each user in the organization",
+      "Add the aws:PrincipalOrgID global condition key with a reference to the organization ID to the S3 bucket policy",
+      "Create an SCP to restrict access to the S3 bucket",
+      "Add a bucket policy that lists all account IDs in the organization"
+    ],
+    correctAnswer: 1,
+    explanation: "The aws:PrincipalOrgID global condition key simplifies specifying the Principal element in a resource-based policy. Instead of listing all account IDs, you can specify the organization ID in the Condition element to limit access to only users within the organization."
+  },
+  {
+    id: 24,
+    question: "An application runs on an Amazon EC2 instance in a VPC. The application processes logs that are stored in an Amazon S3 bucket. The EC2 instance needs to access the S3 bucket without connectivity to the internet. Which solution will provide private network connectivity to Amazon S3?",
+    options: [
+      "Create a gateway VPC endpoint to the S3 bucket",
+      "Create an interface VPC endpoint to the S3 bucket",
+      "Use a NAT gateway to access the S3 bucket",
+      "Use an internet gateway to access the S3 bucket"
+    ],
+    correctAnswer: 0,
+    explanation: "A gateway VPC endpoint allows you to connect to Amazon S3 from your VPC without requiring an internet gateway or NAT device, and with no additional cost. Gateway endpoints provide private connectivity to S3 without using public IP addresses."
+  },
+  {
+    id: 25,
+    question: "A company is hosting a web application on AWS using a single Amazon EC2 instance that stores user-uploaded documents in an Amazon EBS volume. For better scalability and availability, the company duplicated the architecture and created a second EC2 instance and EBS volume in another Availability Zone, placing both behind an Application Load Balancer. After completing this change, users reported that each time they refreshed the website, they could see one subset of their documents or the other, but never all of the documents at the same time. What should a solutions architect propose to ensure users see all of their documents at once?",
+    options: [
+      "Copy data between the two EBS volumes using snapshots",
+      "Configure the Application Load Balancer to use sticky sessions",
+      "Copy the data from both EBS volumes to Amazon EFS. Modify the application to save new documents to Amazon EFS",
+      "Configure the Application Load Balancer to send requests to both instances simultaneously"
+    ],
+    correctAnswer: 2,
+    explanation: "Amazon EFS provides scalability, availability, and shared access, allowing both EC2 instances to access and synchronize the documents seamlessly. Unlike EBS volumes which cannot be shared in real time across multiple instances, EFS allows both instances to access the same file system simultaneously."
+  },
+  {
+    id: 26,
+    question: "A company uses NFS to store large video files in on-premises network attached storage. Each video file ranges in size from 1 MB to 500 GB. The total storage is 70 TB and is no longer growing. The company decides to migrate the video files to Amazon S3. The company must migrate the video files as soon as possible while using the least possible network bandwidth. Which solution will meet these requirements?",
+    options: [
+      "Use AWS DataSync to transfer the data",
+      "Create an AWS Snowball Edge job. Receive a Snowball Edge device on premises. Use the Snowball Edge client to transfer data to the device. Return the device so that AWS can import the data into Amazon S3",
+      "Use AWS Direct Connect to transfer the data",
+      "Use S3 Transfer Acceleration to upload the files"
+    ],
+    correctAnswer: 1,
+    explanation: "AWS Snowball Edge can copy files at speeds up to 100Gbps. For 70TB, it takes less than 2 hours of transfer time. While it takes 4-6 working days to receive the device and 2-3 days to return it, it uses zero network bandwidth, making it ideal for large one-time migrations."
+  },
+  {
+    id: 27,
+    question: "A company has an application that ingests incoming messages. Dozens of other applications and microservices then quickly consume these messages. The number of messages varies drastically and sometimes increases suddenly to 100,000 each second. The company wants to decouple the solution and increase scalability. Which solution meets these requirements?",
+    options: [
+      "Publish messages to Amazon Kinesis Data Streams with multiple consumers",
+      "Publish messages to Amazon SQS with multiple consumers",
+      "Publish messages to an Amazon SNS topic with Amazon SQS subscriptions",
+      "Publish messages to an Amazon SNS topic with multiple Amazon SQS subscriptions. Configure the consumer applications to process the messages from the queues"
+    ],
+    correctAnswer: 3,
+    explanation: "SNS with multiple SQS subscriptions provides fan-out capability to deliver messages to multiple consumers. Each SQS queue can have a filter policy to receive only relevant messages. This architecture decouples producers from consumers and scales to handle high message volumes."
+  },
+  {
+    id: 28,
+    question: "A company is migrating a distributed application to AWS. The application serves variable workloads. The legacy platform consists of a primary server that coordinates jobs across multiple compute nodes. The company wants to modernize the application with a solution that maximizes resiliency and scalability. How should a solutions architect design the architecture to meet these requirements?",
+    options: [
+      "Configure an Amazon EC2 instance as the primary server. Use Amazon EC2 instances in an Auto Scaling group for compute nodes",
+      "Configure an Amazon Simple Queue Service (Amazon SQS) queue as a destination for the jobs. Implement the compute nodes with Amazon EC2 instances that are managed in an Auto Scaling group. Configure EC2 Auto Scaling based on the size of the queue",
+      "Configure an Amazon SNS topic to distribute jobs. Use Amazon EC2 instances in an Auto Scaling group as subscribers",
+      "Configure AWS Lambda functions to process the jobs. Use Amazon EventBridge to distribute the jobs"
+    ],
+    correctAnswer: 1,
+    explanation: "Using SQS as a job queue decouples the architecture. EC2 instances in an Auto Scaling group can process jobs from the queue. Scaling based on queue depth allows the system to adapt to variable workloads, scaling out when messages increase and scaling in when they decrease."
+  },
+  {
+    id: 29,
+    question: "A company is running an SMB file server in its data center. The file server stores large files that are accessed frequently for the first few days after the files are created. After 7 days the files are rarely accessed. The total data size is increasing and is close to the company's total storage capacity. A solutions architect must increase the company's available storage space without losing low-latency access to the most recently accessed files. The solutions architect must also provide file lifecycle management to avoid future storage issues. Which solution will meet these requirements?",
+    options: [
+      "Use AWS DataSync to migrate data to Amazon S3. Create an S3 Lifecycle policy",
+      "Create an Amazon S3 File Gateway to extend the company's storage space. Create an S3 Lifecycle policy to transition the data to S3 Glacier Deep Archive after 7 days",
+      "Create an Amazon FSx for Windows File Server file system to extend storage",
+      "Install a utility on the file server to monitor file access and move files to Amazon S3 Glacier"
+    ],
+    correctAnswer: 1,
+    explanation: "Amazon S3 File Gateway provides a hybrid cloud storage solution, integrating on-premises environments with cloud storage. Files written to the file share are automatically saved as S3 objects. S3 Lifecycle policies can transition objects to Glacier Deep Archive for rarely accessed files, addressing both storage capacity and lifecycle management."
+  },
+  {
+    id: 30,
+    question: "A company is building an ecommerce web application on AWS. The application sends information about new orders to an Amazon API Gateway REST API to process. The company wants to ensure that orders are processed in the order that they are received. Which solution will meet these requirements?",
+    options: [
+      "Use an API Gateway integration to send messages to an Amazon SQS standard queue",
+      "Use an API Gateway integration to send a message to an Amazon Simple Queue Service (Amazon SQS) FIFO queue when the application receives an order. Configure the SQS FIFO queue to invoke an AWS Lambda function for processing",
+      "Use an API Gateway integration to publish messages to an Amazon SNS topic",
+      "Use an API Gateway integration to send messages to AWS Step Functions"
+    ],
+    correctAnswer: 1,
+    explanation: "Amazon SQS FIFO (First-In-First-Out) queues ensure that messages are processed exactly once and in the exact order they are sent. The FIFO queue can trigger a Lambda function to process orders, maintaining the order of processing."
   }
 ];
 
