@@ -62,9 +62,21 @@
     </nz-row>
   </div>
 
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="info-note" style="background: rgba(24, 144, 255, 0.2); border-left-color: #1890ff;">
+    <span nz-icon nzType="loading" nzTheme="outline"></span>
+    Đang tải dữ liệu giá...
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="errorMessage" class="info-note" style="background: rgba(255, 77, 79, 0.2); border-left-color: #ff4d4f;">
+    <span nz-icon nzType="warning" nzTheme="outline"></span>
+    {{ errorMessage }}
+  </div>
+
   <!-- Info Note -->
   <div class="info-note">
     <span nz-icon nzType="info-circle" nzTheme="outline"></span>
-    Giá cập nhật tự động mỗi 5 giây. Đây là dữ liệu mô phỏng cho mục đích demo.
+    Giá cập nhật tự động mỗi 30 giây từ API thực tế. Dữ liệu được lấy từ vang.today và giaxanghomnay.com.
   </div>
 </div>
