@@ -369,9 +369,376 @@ export const SOLUTIONS_ARCHITECT_QUESTIONS: QuizQuestion[] = [
   }
 ];
 
-export const DEVELOPER_QUESTIONS: QuizQuestion[] = [
+// ============================================
+// AWS LAMBDA QUESTIONS - Developer Associate
+// ============================================
+export const LAMBDA_QUESTIONS: QuizQuestion[] = [
   {
     id: 1,
+    question: "What is the maximum execution timeout for an AWS Lambda function?",
+    options: [
+      "5 minutes",
+      "10 minutes",
+      "15 minutes",
+      "30 minutes"
+    ],
+    correctAnswer: 2,
+    explanation: "AWS Lambda functions can run for a maximum of 15 minutes (900 seconds). If your function needs more time, consider using AWS Step Functions or breaking it into smaller functions."
+  },
+  {
+    id: 2,
+    question: "A Lambda function needs to access resources in a VPC. What happens to the function's internet access?",
+    options: [
+      "It maintains internet access automatically",
+      "It loses internet access unless a NAT Gateway is configured",
+      "It can only access VPC resources, never the internet",
+      "It requires an Internet Gateway in the VPC"
+    ],
+    correctAnswer: 1,
+    explanation: "When a Lambda function is configured to access VPC resources, it loses direct internet access. To access both VPC resources and the internet, you need to configure a NAT Gateway in a public subnet."
+  },
+  {
+    id: 3,
+    question: "What is the maximum memory allocation for a Lambda function?",
+    options: [
+      "3,008 MB",
+      "5,120 MB",
+      "10,240 MB",
+      "15,360 MB"
+    ],
+    correctAnswer: 2,
+    explanation: "AWS Lambda allows you to allocate up to 10,240 MB (10 GB) of memory to a function. CPU power scales proportionally with memory allocation."
+  },
+  {
+    id: 4,
+    question: "A developer wants to share code between multiple Lambda functions. What is the best approach?",
+    options: [
+      "Copy the code into each function",
+      "Use Lambda Layers",
+      "Store code in S3 and download it",
+      "Use environment variables"
+    ],
+    correctAnswer: 1,
+    explanation: "Lambda Layers allow you to package libraries, custom runtimes, or other dependencies separately and share them across multiple functions, reducing deployment package size and promoting code reuse."
+  },
+  {
+    id: 5,
+    question: "What is the maximum size of a Lambda deployment package (zipped) when uploaded directly?",
+    options: [
+      "10 MB",
+      "50 MB",
+      "100 MB",
+      "250 MB"
+    ],
+    correctAnswer: 1,
+    explanation: "The maximum deployment package size is 50 MB (zipped) for direct upload. For larger packages (up to 250 MB unzipped), you must upload to S3 first."
+  },
+  {
+    id: 6,
+    question: "A Lambda function is experiencing cold starts. Which strategy will NOT help reduce cold start time?",
+    options: [
+      "Increase memory allocation",
+      "Use provisioned concurrency",
+      "Minimize deployment package size",
+      "Increase timeout value"
+    ],
+    correctAnswer: 3,
+    explanation: "Increasing timeout value does not reduce cold start time; it only allows the function more time to execute. Cold starts are reduced by: increasing memory (faster CPU), using provisioned concurrency, minimizing package size, and keeping functions warm."
+  },
+  {
+    id: 7,
+    question: "How does Lambda handle concurrent executions by default?",
+    options: [
+      "One execution at a time per function",
+      "Up to 1,000 concurrent executions per account per region",
+      "Unlimited concurrent executions",
+      "10 concurrent executions per function"
+    ],
+    correctAnswer: 1,
+    explanation: "AWS Lambda provides a default concurrent execution limit of 1,000 per account per region. This is a soft limit that can be increased by requesting a quota increase from AWS Support."
+  },
+  {
+    id: 8,
+    question: "A Lambda function needs to process messages from an SQS queue. What is the recommended batch size for optimal performance?",
+    options: [
+      "1 message at a time",
+      "10 messages (default)",
+      "100 messages",
+      "It depends on message size and processing time"
+    ],
+    correctAnswer: 3,
+    explanation: "The optimal batch size depends on your specific use case, including message size, processing time, and memory requirements. Start with the default (10) and adjust based on performance metrics. Maximum batch size is 10,000 for standard queues."
+  },
+  {
+    id: 9,
+    question: "What happens when a Lambda function invoked synchronously throws an error?",
+    options: [
+      "Lambda automatically retries 3 times",
+      "The error is returned to the caller immediately",
+      "The function is placed in a dead-letter queue",
+      "Lambda retries indefinitely"
+    ],
+    correctAnswer: 1,
+    explanation: "For synchronous invocations (like API Gateway), errors are returned immediately to the caller. The caller is responsible for implementing retry logic. Automatic retries only occur for asynchronous invocations and stream-based invocations."
+  },
+  {
+    id: 10,
+    question: "A developer wants to test a Lambda function locally before deployment. Which tool is officially provided by AWS?",
+    options: [
+      "AWS Lambda Test Console",
+      "AWS SAM CLI",
+      "AWS Cloud9",
+      "LocalStack"
+    ],
+    correctAnswer: 1,
+    explanation: "AWS SAM (Serverless Application Model) CLI provides the 'sam local' command to test Lambda functions locally using Docker containers that simulate the Lambda execution environment."
+  },
+  {
+    id: 11,
+    question: "What is the purpose of Lambda's reserved concurrency setting?",
+    options: [
+      "To increase function performance",
+      "To guarantee a specific number of concurrent executions and limit maximum concurrency",
+      "To reduce cold starts",
+      "To enable auto-scaling"
+    ],
+    correctAnswer: 1,
+    explanation: "Reserved concurrency serves two purposes: it guarantees that a specific number of concurrent executions are always available for your function, and it sets a maximum limit to prevent the function from consuming all account concurrency."
+  },
+  {
+    id: 12,
+    question: "A Lambda function processes S3 events but occasionally fails. How can you capture failed events for later reprocessing?",
+    options: [
+      "Enable S3 versioning",
+      "Configure a dead-letter queue (DLQ)",
+      "Increase Lambda timeout",
+      "Use S3 event notifications retry"
+    ],
+    correctAnswer: 1,
+    explanation: "Configuring a dead-letter queue (SQS or SNS) allows Lambda to send failed event payloads for asynchronous invocations, enabling you to analyze failures and reprocess events later."
+  },
+  {
+    id: 13,
+    question: "What is the difference between Lambda's /tmp directory and Lambda Layers?",
+    options: [
+      "They are the same thing",
+      "/tmp is for temporary runtime storage (up to 10GB), Layers are for shared code/dependencies",
+      "/tmp is permanent storage, Layers are temporary",
+      "Layers are faster than /tmp"
+    ],
+    correctAnswer: 1,
+    explanation: "/tmp provides ephemeral storage (up to 10GB) during function execution for temporary files. Lambda Layers are for packaging and sharing code, libraries, and dependencies across functions. They serve different purposes."
+  },
+  {
+    id: 14,
+    question: "A Lambda function needs to call an external API that takes 2 minutes to respond. What is the best architecture?",
+    options: [
+      "Increase Lambda timeout to 3 minutes",
+      "Use Lambda with Step Functions for orchestration",
+      "Use synchronous invocation with retry logic",
+      "Split the function into multiple smaller functions"
+    ],
+    correctAnswer: 1,
+    explanation: "For long-running operations, use Step Functions to orchestrate the workflow. Step Functions can wait for external callbacks and handle long-running tasks better than Lambda alone, which has a 15-minute maximum timeout."
+  },
+  {
+    id: 15,
+    question: "How are environment variables encrypted in Lambda?",
+    options: [
+      "They are not encrypted",
+      "Encrypted at rest using AWS managed keys by default",
+      "Encrypted only if you enable it manually",
+      "Encrypted in transit only"
+    ],
+    correctAnswer: 1,
+    explanation: "Lambda environment variables are encrypted at rest using AWS managed keys by default. You can optionally use your own KMS keys for additional control. They are also encrypted in transit."
+  },
+  {
+    id: 16,
+    question: "What is Lambda's provisioned concurrency feature used for?",
+    options: [
+      "To reduce costs",
+      "To eliminate cold starts by keeping functions initialized",
+      "To increase maximum concurrent executions",
+      "To enable auto-scaling"
+    ],
+    correctAnswer: 1,
+    explanation: "Provisioned concurrency keeps a specified number of function instances initialized and ready to respond immediately, eliminating cold starts for those instances. This is useful for latency-sensitive applications."
+  },
+  {
+    id: 17,
+    question: "A Lambda function needs to access a database password. What is the most secure approach?",
+    options: [
+      "Store it in an environment variable",
+      "Hardcode it in the function code",
+      "Store it in AWS Secrets Manager and retrieve it at runtime",
+      "Store it in an S3 bucket"
+    ],
+    correctAnswer: 2,
+    explanation: "AWS Secrets Manager is designed for storing sensitive information like database credentials. It provides automatic rotation, encryption, and fine-grained access control. Lambda can retrieve secrets at runtime using the SDK."
+  },
+  {
+    id: 18,
+    question: "What is the maximum number of Lambda Layers that can be attached to a single function?",
+    options: [
+      "3 layers",
+      "5 layers",
+      "10 layers",
+      "Unlimited"
+    ],
+    correctAnswer: 1,
+    explanation: "A Lambda function can reference up to 5 layers at a time. The total unzipped size of the function and all layers cannot exceed 250 MB."
+  },
+  {
+    id: 19,
+    question: "A Lambda function invoked by API Gateway returns a 502 Bad Gateway error. What is the most likely cause?",
+    options: [
+      "API Gateway is down",
+      "Lambda function timeout or unhandled exception",
+      "Invalid API Gateway configuration",
+      "DDoS attack"
+    ],
+    correctAnswer: 1,
+    explanation: "A 502 error from API Gateway typically indicates that the Lambda function timed out, threw an unhandled exception, or returned an improperly formatted response. Check CloudWatch Logs for the actual error."
+  },
+  {
+    id: 20,
+    question: "How can you optimize Lambda function performance when accessing DynamoDB?",
+    options: [
+      "Increase Lambda memory allocation",
+      "Use connection pooling and reuse SDK clients outside the handler",
+      "Enable DynamoDB auto-scaling",
+      "Use provisioned concurrency"
+    ],
+    correctAnswer: 1,
+    explanation: "Initialize the AWS SDK client outside the Lambda handler function to reuse connections across invocations. This reduces latency and improves performance by avoiding connection overhead on each invocation."
+  },
+  {
+    id: 21,
+    question: "What is the purpose of Lambda's execution role?",
+    options: [
+      "To authenticate users calling the function",
+      "To grant the function permissions to access AWS services",
+      "To encrypt function code",
+      "To enable VPC access"
+    ],
+    correctAnswer: 1,
+    explanation: "The execution role is an IAM role that grants the Lambda function permissions to access AWS services and resources. It defines what the function can do, such as reading from S3, writing to DynamoDB, or publishing to SNS."
+  },
+  {
+    id: 22,
+    question: "A Lambda function processes Kinesis stream records. What happens if the function fails to process a batch?",
+    options: [
+      "The batch is discarded",
+      "Lambda retries the entire batch until success or expiration",
+      "Only failed records are retried",
+      "The stream is paused"
+    ],
+    correctAnswer: 1,
+    explanation: "For stream-based event sources (Kinesis, DynamoDB Streams), Lambda retries the entire batch until it succeeds or the data expires. This ensures in-order processing but can block the shard if errors persist."
+  },
+  {
+    id: 23,
+    question: "What is the best practice for handling secrets in Lambda functions?",
+    options: [
+      "Store in environment variables with encryption helpers",
+      "Use AWS Secrets Manager or Systems Manager Parameter Store",
+      "Embed in the deployment package",
+      "Pass as function parameters"
+    ],
+    correctAnswer: 1,
+    explanation: "AWS Secrets Manager and Systems Manager Parameter Store are purpose-built for managing secrets. They provide encryption, rotation, auditing, and fine-grained access control. Retrieve secrets at runtime rather than storing them in environment variables."
+  },
+  {
+    id: 24,
+    question: "How does Lambda handle function versioning?",
+    options: [
+      "Versions are automatically created on each deployment",
+      "You must explicitly publish a version to create an immutable snapshot",
+      "Only one version exists at a time",
+      "Versions are created weekly"
+    ],
+    correctAnswer: 1,
+    explanation: "Lambda versions are immutable snapshots of your function code and configuration. You must explicitly publish a version; otherwise, you're working with $LATEST (mutable). Versions enable safe deployments and rollbacks."
+  },
+  {
+    id: 25,
+    question: "What is the purpose of Lambda aliases?",
+    options: [
+      "To rename functions",
+      "To create pointers to specific function versions and enable traffic shifting",
+      "To reduce costs",
+      "To improve performance"
+    ],
+    correctAnswer: 1,
+    explanation: "Aliases are pointers to specific Lambda versions (e.g., 'prod' → version 3). They enable blue/green deployments by allowing weighted traffic shifting between versions and provide stable endpoints for clients."
+  },
+  {
+    id: 26,
+    question: "A Lambda function needs to process large files from S3. What is the recommended approach?",
+    options: [
+      "Download the entire file to /tmp and process it",
+      "Use S3 Select to retrieve only needed data",
+      "Increase Lambda memory to 10GB",
+      "Use EC2 instead"
+    ],
+    correctAnswer: 1,
+    explanation: "S3 Select allows you to retrieve only the subset of data you need using SQL expressions, reducing data transfer and processing time. For very large files, consider streaming or using services like AWS Glue."
+  },
+  {
+    id: 27,
+    question: "What is Lambda's SnapStart feature designed for?",
+    options: [
+      "Faster deployment",
+      "Reducing cold start times for Java functions",
+      "Automatic scaling",
+      "Cost optimization"
+    ],
+    correctAnswer: 1,
+    explanation: "Lambda SnapStart improves cold start performance for Java functions by up to 10x. It creates and caches a snapshot of the initialized execution environment, allowing faster function startup."
+  },
+  {
+    id: 28,
+    question: "How can you monitor Lambda function performance and errors?",
+    options: [
+      "Only through AWS Console",
+      "CloudWatch Metrics, Logs, and X-Ray tracing",
+      "Email notifications only",
+      "Manual log file review"
+    ],
+    correctAnswer: 1,
+    explanation: "Lambda integrates with CloudWatch for metrics (invocations, errors, duration) and logs (console output). AWS X-Ray provides distributed tracing to analyze performance and debug issues across services."
+  },
+  {
+    id: 29,
+    question: "What is the maximum payload size for synchronous Lambda invocations?",
+    options: [
+      "256 KB",
+      "1 MB",
+      "6 MB",
+      "10 MB"
+    ],
+    correctAnswer: 2,
+    explanation: "The maximum request and response payload size for synchronous invocations is 6 MB. For asynchronous invocations, the limit is 256 KB. For larger payloads, use S3 to store data and pass references."
+  },
+  {
+    id: 30,
+    question: "A Lambda function needs to fan out messages to multiple services. What is the best architecture?",
+    options: [
+      "Lambda → SQS → Multiple Lambdas",
+      "Lambda → SNS → Multiple subscribers (SQS, Lambda, etc.)",
+      "Lambda → Kinesis → Multiple Lambdas",
+      "Multiple Lambda invocations from the source"
+    ],
+    correctAnswer: 1,
+    explanation: "SNS provides native fan-out capability, allowing one message to be delivered to multiple subscribers (SQS queues, Lambda functions, HTTP endpoints, etc.) simultaneously. This is more efficient than manual fan-out."
+  }
+];
+
+export const DEVELOPER_QUESTIONS: QuizQuestion[] = [
+  ...LAMBDA_QUESTIONS,
+  {
+    id: 31,
     question: "A developer needs to deploy a Node.js application quickly without managing infrastructure. Which service is most appropriate?",
     options: [
       "Amazon EC2",
@@ -383,7 +750,7 @@ export const DEVELOPER_QUESTIONS: QuizQuestion[] = [
     explanation: "Elastic Beanstalk automatically handles deployment, capacity provisioning, load balancing, and monitoring while allowing developers to focus on code."
   },
   {
-    id: 2,
+    id: 32,
     question: "An application needs to store user credentials securely. Which service should be used?",
     options: [
       "AWS Systems Manager Parameter Store",
@@ -395,7 +762,7 @@ export const DEVELOPER_QUESTIONS: QuizQuestion[] = [
     explanation: "AWS Secrets Manager is specifically designed for storing and rotating credentials, API keys, and other secrets with automatic rotation capabilities."
   },
   {
-    id: 3,
+    id: 33,
     question: "A developer wants to test API changes without affecting production. What is the best approach using API Gateway?",
     options: [
       "Create a new API Gateway",
@@ -407,7 +774,7 @@ export const DEVELOPER_QUESTIONS: QuizQuestion[] = [
     explanation: "API Gateway stages allow deploying different versions of an API (dev, test, prod) with separate configurations and endpoints."
   },
   {
-    id: 4,
+    id: 34,
     question: "An application needs to process uploaded images asynchronously. Which architecture is most suitable?",
     options: [
       "S3 → Lambda → DynamoDB",
@@ -419,7 +786,7 @@ export const DEVELOPER_QUESTIONS: QuizQuestion[] = [
     explanation: "S3 event notifications can trigger Lambda functions automatically when images are uploaded, which can then process and store metadata in DynamoDB."
   },
   {
-    id: 5,
+    id: 35,
     question: "A developer needs to debug a Lambda function that's timing out. Which service provides the most detailed logs?",
     options: [
       "AWS X-Ray",
@@ -431,7 +798,7 @@ export const DEVELOPER_QUESTIONS: QuizQuestion[] = [
     explanation: "CloudWatch Logs automatically captures all console output and logs from Lambda functions, providing detailed execution information."
   },
   {
-    id: 6,
+    id: 36,
     question: "An application needs to implement user authentication with social identity providers. Which service should be used?",
     options: [
       "AWS IAM",
@@ -443,7 +810,7 @@ export const DEVELOPER_QUESTIONS: QuizQuestion[] = [
     explanation: "Amazon Cognito provides user authentication and authorization with support for social identity providers like Google, Facebook, and Amazon."
   },
   {
-    id: 7,
+    id: 37,
     question: "A developer wants to implement CI/CD for their application. Which AWS service combination is most appropriate?",
     options: [
       "GitHub → Jenkins → EC2",
@@ -455,7 +822,7 @@ export const DEVELOPER_QUESTIONS: QuizQuestion[] = [
     explanation: "AWS CodePipeline orchestrates the entire CI/CD workflow using CodeCommit (source), CodeBuild (build), and CodeDeploy (deployment)."
   },
   {
-    id: 8,
+    id: 38,
     question: "An application needs to handle API requests that take longer than 30 seconds to process. What is the best solution?",
     options: [
       "Increase API Gateway timeout",
@@ -467,7 +834,7 @@ export const DEVELOPER_QUESTIONS: QuizQuestion[] = [
     explanation: "API Gateway has a 30-second timeout limit. For longer processing, use asynchronous patterns with SQS queuing the request and Lambda processing it."
   },
   {
-    id: 9,
+    id: 39,
     question: "A developer needs to trace requests across multiple microservices. Which service should they use?",
     options: [
       "Amazon CloudWatch",
@@ -479,7 +846,7 @@ export const DEVELOPER_QUESTIONS: QuizQuestion[] = [
     explanation: "AWS X-Ray provides end-to-end tracing of requests across distributed applications, showing the flow through different services."
   },
   {
-    id: 10,
+    id: 40,
     question: "An application needs to store session state for a serverless API. Which solution is most cost-effective?",
     options: [
       "Amazon RDS",
@@ -489,126 +856,6 @@ export const DEVELOPER_QUESTIONS: QuizQuestion[] = [
     ],
     correctAnswer: 1,
     explanation: "DynamoDB offers serverless, pay-per-request pricing with fast access times, making it ideal for session storage in serverless applications."
-  },
-  {
-    id: 11,
-    question: "A developer wants to run containers without managing servers. Which service should they use?",
-    options: [
-      "Amazon ECS with EC2",
-      "Amazon ECS with Fargate",
-      "Amazon EKS with EC2",
-      "AWS Elastic Beanstalk"
-    ],
-    correctAnswer: 1,
-    explanation: "AWS Fargate is a serverless compute engine for containers that removes the need to provision and manage servers."
-  },
-  {
-    id: 12,
-    question: "An application needs to send emails to users. Which service is most appropriate?",
-    options: [
-      "Amazon SNS",
-      "Amazon SQS",
-      "Amazon SES",
-      "AWS Lambda"
-    ],
-    correctAnswer: 2,
-    explanation: "Amazon SES (Simple Email Service) is specifically designed for sending transactional and marketing emails at scale."
-  },
-  {
-    id: 13,
-    question: "A developer needs to implement rate limiting for their API. Which API Gateway feature should they use?",
-    options: [
-      "Usage Plans and API Keys",
-      "Lambda Authorizers",
-      "Resource Policies",
-      "CORS Configuration"
-    ],
-    correctAnswer: 0,
-    explanation: "API Gateway Usage Plans allow setting throttling limits and quotas per API key, implementing effective rate limiting."
-  },
-  {
-    id: 14,
-    question: "An application needs to process streaming data from mobile apps in real-time. Which service is most suitable?",
-    options: [
-      "Amazon SQS",
-      "Amazon Kinesis Data Streams",
-      "Amazon SNS",
-      "AWS AppSync"
-    ],
-    correctAnswer: 1,
-    explanation: "Kinesis Data Streams is designed for real-time processing of streaming data at scale from multiple sources."
-  },
-  {
-    id: 15,
-    question: "A developer wants to implement GraphQL APIs with real-time subscriptions. Which service should they use?",
-    options: [
-      "API Gateway REST API",
-      "API Gateway WebSocket API",
-      "AWS AppSync",
-      "Amazon EventBridge"
-    ],
-    correctAnswer: 2,
-    explanation: "AWS AppSync is a managed GraphQL service with built-in support for real-time subscriptions and offline sync."
-  },
-  {
-    id: 16,
-    question: "An application needs to execute code on a schedule. Which service combination is most appropriate?",
-    options: [
-      "CloudWatch Events → Lambda",
-      "EC2 with cron jobs",
-      "Step Functions → Lambda",
-      "SQS → Lambda"
-    ],
-    correctAnswer: 0,
-    explanation: "CloudWatch Events (EventBridge) can trigger Lambda functions on a schedule using cron or rate expressions."
-  },
-  {
-    id: 17,
-    question: "A developer needs to implement blue/green deployments for their application. Which service supports this natively?",
-    options: [
-      "AWS CodeDeploy",
-      "AWS CloudFormation",
-      "AWS Elastic Beanstalk",
-      "All of the above"
-    ],
-    correctAnswer: 3,
-    explanation: "All three services support blue/green deployments: CodeDeploy for EC2/Lambda, CloudFormation with change sets, and Elastic Beanstalk with environment swapping."
-  },
-  {
-    id: 18,
-    question: "An application needs to store and retrieve JSON documents with flexible schema. Which database is most appropriate?",
-    options: [
-      "Amazon RDS MySQL",
-      "Amazon DynamoDB",
-      "Amazon Aurora",
-      "Amazon Redshift"
-    ],
-    correctAnswer: 1,
-    explanation: "DynamoDB is a NoSQL database that natively stores JSON documents and supports flexible schemas without predefined structure."
-  },
-  {
-    id: 19,
-    question: "A developer wants to implement request validation before invoking Lambda. Where should this be configured?",
-    options: [
-      "In Lambda function code",
-      "In API Gateway request validators",
-      "In CloudFront",
-      "In Application Load Balancer"
-    ],
-    correctAnswer: 1,
-    explanation: "API Gateway request validators can validate request parameters and body before invoking the backend, reducing Lambda invocations and costs."
-  },
-  {
-    id: 20,
-    question: "An application needs to coordinate multiple Lambda functions in a workflow. Which service should be used?",
-    options: [
-      "Amazon SQS",
-      "Amazon SNS",
-      "AWS Step Functions",
-      "Amazon EventBridge"
-    ],
-    correctAnswer: 2,
-    explanation: "AWS Step Functions orchestrates multiple Lambda functions and other AWS services into serverless workflows with error handling and retry logic."
   }
 ];
 
