@@ -1475,6 +1475,372 @@ export const API_GATEWAY_QUESTIONS: QuizQuestion[] = [
   }
 ];
 
+// ============================================
+// AWS IAM QUESTIONS - Developer Associate
+// ============================================
+export const IAM_QUESTIONS: QuizQuestion[] = [
+  {
+    id: 1,
+    question: "What is the best practice for managing AWS credentials in application code?",
+    options: [
+      "Hardcode credentials in the application",
+      "Store credentials in environment variables",
+      "Use IAM roles for EC2 instances or Lambda functions",
+      "Store credentials in a configuration file"
+    ],
+    correctAnswer: 2,
+    explanation: "IAM roles provide temporary credentials that are automatically rotated, eliminating the need to manage long-term credentials. This is the most secure approach."
+  },
+  {
+    id: 2,
+    question: "What is the difference between IAM users and IAM roles?",
+    options: [
+      "Users are for humans, roles are for AWS services",
+      "Users have permanent credentials, roles provide temporary credentials",
+      "Roles can be assumed by users, services, or applications",
+      "All of the above"
+    ],
+    correctAnswer: 3,
+    explanation: "IAM users have permanent credentials (access keys), while roles provide temporary credentials. Roles can be assumed by users, AWS services, or applications from other accounts."
+  },
+  {
+    id: 3,
+    question: "What is the maximum number of IAM groups an IAM user can belong to?",
+    options: [
+      "5 groups",
+      "10 groups",
+      "20 groups",
+      "Unlimited"
+    ],
+    correctAnswer: 1,
+    explanation: "An IAM user can be a member of up to 10 IAM groups. This is a hard limit that cannot be increased."
+  },
+  {
+    id: 4,
+    question: "Which IAM policy type takes precedence when there's a conflict?",
+    options: [
+      "Allow always takes precedence",
+      "Deny always takes precedence",
+      "The most recently created policy",
+      "Identity-based policies take precedence"
+    ],
+    correctAnswer: 1,
+    explanation: "In IAM, an explicit Deny always takes precedence over any Allow. This is a fundamental principle of IAM policy evaluation."
+  },
+  {
+    id: 5,
+    question: "What is the purpose of IAM policy conditions?",
+    options: [
+      "To specify when a policy is active",
+      "To add additional constraints to policy permissions",
+      "To define policy versions",
+      "To set policy expiration dates"
+    ],
+    correctAnswer: 1,
+    explanation: "IAM policy conditions allow you to add fine-grained control by specifying circumstances under which permissions are granted (e.g., IP address, time, MFA status)."
+  },
+  {
+    id: 6,
+    question: "What is the maximum size of an IAM policy document?",
+    options: [
+      "2 KB",
+      "6 KB",
+      "10 KB",
+      "20 KB"
+    ],
+    correctAnswer: 1,
+    explanation: "IAM policy documents have a maximum size of 6,144 characters (6 KB). For larger policies, consider using multiple policies or policy conditions."
+  },
+  {
+    id: 7,
+    question: "What is an IAM instance profile?",
+    options: [
+      "A container for IAM roles that can be attached to EC2 instances",
+      "A user profile for EC2 instances",
+      "A security group configuration",
+      "A network configuration for instances"
+    ],
+    correctAnswer: 0,
+    explanation: "An instance profile is a container for an IAM role that you can attach to an EC2 instance, allowing the instance to assume the role and obtain temporary credentials."
+  },
+  {
+    id: 8,
+    question: "How can you enable MFA (Multi-Factor Authentication) for IAM users?",
+    options: [
+      "MFA is enabled by default",
+      "Enable MFA in the IAM user's security credentials",
+      "MFA can only be enabled for root users",
+      "MFA requires AWS Support approval"
+    ],
+    correctAnswer: 1,
+    explanation: "MFA can be enabled for individual IAM users through their security credentials settings. It's a best practice to enable MFA for all users, especially those with elevated privileges."
+  },
+  {
+    id: 9,
+    question: "What is the purpose of IAM Access Analyzer?",
+    options: [
+      "To analyze IAM user activity",
+      "To identify resources shared with external entities",
+      "To optimize IAM policies",
+      "To monitor IAM costs"
+    ],
+    correctAnswer: 1,
+    explanation: "IAM Access Analyzer helps identify resources (S3 buckets, IAM roles, etc.) that are shared with external entities, helping you understand and control external access."
+  },
+  {
+    id: 10,
+    question: "What is the difference between identity-based and resource-based policies?",
+    options: [
+      "Identity-based attach to users/roles, resource-based attach to resources",
+      "Identity-based are more secure",
+      "Resource-based policies are deprecated",
+      "There is no difference"
+    ],
+    correctAnswer: 0,
+    explanation: "Identity-based policies attach to IAM identities (users, groups, roles) and define what they can do. Resource-based policies attach to resources (S3, SQS) and define who can access them."
+  },
+  {
+    id: 11,
+    question: "What is the AWS Security Token Service (STS)?",
+    options: [
+      "A service for storing security tokens",
+      "A service for creating temporary security credentials",
+      "A service for managing IAM users",
+      "A service for encrypting data"
+    ],
+    correctAnswer: 1,
+    explanation: "AWS STS enables you to request temporary, limited-privilege credentials for IAM users or federated users. These credentials consist of access key ID, secret access key, and security token."
+  },
+  {
+    id: 12,
+    question: "What is the maximum duration for temporary credentials from STS AssumeRole?",
+    options: [
+      "1 hour",
+      "12 hours",
+      "24 hours",
+      "7 days"
+    ],
+    correctAnswer: 1,
+    explanation: "The maximum session duration for AssumeRole is 12 hours. The default is 1 hour, but you can configure it up to 12 hours in the role's settings."
+  },
+  {
+    id: 13,
+    question: "What is an IAM permission boundary?",
+    options: [
+      "A limit on the number of permissions",
+      "A maximum set of permissions that an identity-based policy can grant",
+      "A firewall rule for IAM",
+      "A geographic restriction"
+    ],
+    correctAnswer: 1,
+    explanation: "Permission boundaries set the maximum permissions that an identity-based policy can grant to an IAM entity. They don't grant permissions themselves but limit what can be granted."
+  },
+  {
+    id: 14,
+    question: "How can you grant cross-account access in AWS?",
+    options: [
+      "Share IAM user credentials",
+      "Use IAM roles with trust policies",
+      "Copy resources to the other account",
+      "Cross-account access is not possible"
+    ],
+    correctAnswer: 1,
+    explanation: "Cross-account access is achieved using IAM roles with trust policies that specify which accounts can assume the role. This is more secure than sharing credentials."
+  },
+  {
+    id: 15,
+    question: "What is the purpose of IAM policy variables?",
+    options: [
+      "To make policies dynamic based on request context",
+      "To store policy versions",
+      "To encrypt policy documents",
+      "To compress large policies"
+    ],
+    correctAnswer: 0,
+    explanation: "IAM policy variables (like ${aws:username}) allow you to create dynamic policies that adapt based on the request context, reducing the need for multiple similar policies."
+  },
+  {
+    id: 16,
+    question: "What is the AWS managed policy 'PowerUserAccess'?",
+    options: [
+      "Full access to all AWS services",
+      "Full access except IAM and Organizations management",
+      "Read-only access to all services",
+      "Access to EC2 only"
+    ],
+    correctAnswer: 1,
+    explanation: "PowerUserAccess provides full access to AWS services and resources, but does not allow management of users, groups, and policies in IAM or AWS Organizations."
+  },
+  {
+    id: 17,
+    question: "How can you enforce MFA for specific API operations?",
+    options: [
+      "MFA cannot be enforced for API operations",
+      "Use IAM policy conditions with aws:MultiFactorAuthPresent",
+      "Enable MFA in AWS Config",
+      "Use CloudWatch alarms"
+    ],
+    correctAnswer: 1,
+    explanation: "You can use the condition key 'aws:MultiFactorAuthPresent' in IAM policies to require MFA for specific operations, adding an extra layer of security."
+  },
+  {
+    id: 18,
+    question: "What is the difference between AWS managed policies and customer managed policies?",
+    options: [
+      "AWS managed are created by AWS, customer managed are created by you",
+      "AWS managed policies are more secure",
+      "Customer managed policies cost more",
+      "There is no difference"
+    ],
+    correctAnswer: 0,
+    explanation: "AWS managed policies are created and maintained by AWS. Customer managed policies are created and maintained by you, offering more flexibility and customization."
+  },
+  {
+    id: 19,
+    question: "What is the purpose of IAM credential reports?",
+    options: [
+      "To audit IAM user credentials and their status",
+      "To generate new credentials",
+      "To encrypt credentials",
+      "To backup IAM configurations"
+    ],
+    correctAnswer: 0,
+    explanation: "IAM credential reports list all IAM users and the status of their credentials (passwords, access keys, MFA devices), helping with security audits and compliance."
+  },
+  {
+    id: 20,
+    question: "What is the principle of least privilege in IAM?",
+    options: [
+      "Grant minimum permissions necessary to perform a task",
+      "Grant all permissions by default",
+      "Grant permissions only to administrators",
+      "Grant permissions based on user seniority"
+    ],
+    correctAnswer: 0,
+    explanation: "The principle of least privilege means granting only the minimum permissions necessary for users or services to perform their tasks, reducing security risks."
+  },
+  {
+    id: 21,
+    question: "How can you rotate IAM access keys?",
+    options: [
+      "Access keys cannot be rotated",
+      "Create new keys, update applications, delete old keys",
+      "AWS automatically rotates access keys",
+      "Use AWS Key Management Service"
+    ],
+    correctAnswer: 1,
+    explanation: "Access key rotation involves creating new keys, updating applications to use them, verifying functionality, and then deleting the old keys. This should be done regularly."
+  },
+  {
+    id: 22,
+    question: "What is an IAM service-linked role?",
+    options: [
+      "A role linked to a specific AWS service with predefined permissions",
+      "A role for linking multiple services",
+      "A deprecated role type",
+      "A role for service accounts"
+    ],
+    correctAnswer: 0,
+    explanation: "Service-linked roles are predefined by AWS services and include all permissions the service needs. They simplify setup and ensure services have necessary permissions."
+  },
+  {
+    id: 23,
+    question: "What is the maximum number of managed policies that can be attached to an IAM user?",
+    options: [
+      "5 policies",
+      "10 policies",
+      "20 policies",
+      "Unlimited"
+    ],
+    correctAnswer: 1,
+    explanation: "You can attach up to 10 managed policies (AWS managed or customer managed) to an IAM user, group, or role. This is a hard limit."
+  },
+  {
+    id: 24,
+    question: "What is IAM policy evaluation logic?",
+    options: [
+      "Allow by default, deny overrides",
+      "Deny by default, explicit allow required, explicit deny overrides",
+      "First policy wins",
+      "Random selection"
+    ],
+    correctAnswer: 1,
+    explanation: "IAM uses deny-by-default logic: all requests are denied by default, an explicit allow is required, and an explicit deny always overrides any allows."
+  },
+  {
+    id: 25,
+    question: "How can you delegate permissions to AWS services?",
+    options: [
+      "Share IAM user credentials",
+      "Create IAM roles with trust policies for the service",
+      "Use root account credentials",
+      "Delegation is not possible"
+    ],
+    correctAnswer: 1,
+    explanation: "Create IAM roles with trust policies that allow specific AWS services to assume the role. The service can then use the role's permissions to access resources."
+  },
+  {
+    id: 26,
+    question: "What is the purpose of IAM tags?",
+    options: [
+      "To organize and control access to IAM resources",
+      "To encrypt IAM data",
+      "To backup IAM configurations",
+      "To monitor IAM costs"
+    ],
+    correctAnswer: 0,
+    explanation: "IAM tags are key-value pairs that help organize IAM resources and can be used in policies for attribute-based access control (ABAC)."
+  },
+  {
+    id: 27,
+    question: "What is AWS Organizations Service Control Policy (SCP)?",
+    options: [
+      "A policy that sets permission boundaries for accounts in an organization",
+      "A policy for organizing IAM users",
+      "A policy for service configuration",
+      "A policy for cost control"
+    ],
+    correctAnswer: 0,
+    explanation: "SCPs are policies that specify the maximum permissions for accounts in an AWS Organization. They don't grant permissions but limit what can be done in member accounts."
+  },
+  {
+    id: 28,
+    question: "How can you test IAM policies before applying them?",
+    options: [
+      "IAM Policy Simulator",
+      "CloudWatch Logs",
+      "AWS Config",
+      "Testing is not possible"
+    ],
+    correctAnswer: 0,
+    explanation: "The IAM Policy Simulator allows you to test and troubleshoot IAM policies by simulating API calls and seeing whether they would be allowed or denied."
+  },
+  {
+    id: 29,
+    question: "What is the difference between inline policies and managed policies?",
+    options: [
+      "Inline are embedded in a single identity, managed can be attached to multiple identities",
+      "Inline policies are more secure",
+      "Managed policies are deprecated",
+      "There is no difference"
+    ],
+    correctAnswer: 0,
+    explanation: "Inline policies are embedded directly in a single user, group, or role. Managed policies are standalone and can be attached to multiple identities, making them more reusable."
+  },
+  {
+    id: 30,
+    question: "What is the purpose of IAM Access Advisor?",
+    options: [
+      "To show which services an IAM entity has accessed and when",
+      "To create new IAM policies",
+      "To encrypt IAM data",
+      "To backup IAM configurations"
+    ],
+    correctAnswer: 0,
+    explanation: "IAM Access Advisor shows service permissions granted to a user, group, or role and when those services were last accessed, helping you implement least privilege."
+  }
+];
+
 // General AWS Developer questions
 export const GENERAL_DEVELOPER_QUESTIONS: QuizQuestion[] = [
   {
@@ -1606,7 +1972,7 @@ export const DEVELOPER_TOPICS: QuizTopic[] = [
     name: 'All Topics',
     icon: '📚',
     description: 'All AWS Developer Associate questions',
-    questions: [...LAMBDA_QUESTIONS, ...DYNAMODB_QUESTIONS, ...API_GATEWAY_QUESTIONS, ...GENERAL_DEVELOPER_QUESTIONS]
+    questions: [...LAMBDA_QUESTIONS, ...DYNAMODB_QUESTIONS, ...API_GATEWAY_QUESTIONS, ...IAM_QUESTIONS, ...GENERAL_DEVELOPER_QUESTIONS]
   },
   {
     id: 'lambda',
@@ -1630,6 +1996,13 @@ export const DEVELOPER_TOPICS: QuizTopic[] = [
     questions: API_GATEWAY_QUESTIONS
   },
   {
+    id: 'iam',
+    name: 'IAM',
+    icon: '🔐',
+    description: 'Identity and Access Management questions',
+    questions: IAM_QUESTIONS
+  },
+  {
     id: 'general',
     name: 'General',
     icon: '⚙️',
@@ -1643,6 +2016,7 @@ export const DEVELOPER_QUESTIONS: QuizQuestion[] = [
   ...LAMBDA_QUESTIONS,
   ...DYNAMODB_QUESTIONS,
   ...API_GATEWAY_QUESTIONS,
+  ...IAM_QUESTIONS,
   ...GENERAL_DEVELOPER_QUESTIONS
 ];
 
