@@ -1109,6 +1109,372 @@ export const DYNAMODB_QUESTIONS: QuizQuestion[] = [
   }
 ];
 
+// ============================================
+// AWS API GATEWAY QUESTIONS - Developer Associate
+// ============================================
+export const API_GATEWAY_QUESTIONS: QuizQuestion[] = [
+  {
+    id: 1,
+    question: "What is the maximum timeout for API Gateway integration with Lambda?",
+    options: [
+      "15 seconds",
+      "29 seconds",
+      "30 seconds",
+      "5 minutes"
+    ],
+    correctAnswer: 1,
+    explanation: "API Gateway has a maximum integration timeout of 29 seconds. If your backend takes longer, you should use asynchronous patterns with SQS or Step Functions."
+  },
+  {
+    id: 2,
+    question: "Which API Gateway deployment type provides the lowest latency for API calls?",
+    options: [
+      "Edge-optimized API",
+      "Regional API",
+      "Private API",
+      "All have the same latency"
+    ],
+    correctAnswer: 0,
+    explanation: "Edge-optimized APIs use CloudFront edge locations to reduce latency for geographically distributed clients. Regional APIs are best when clients are in the same region."
+  },
+  {
+    id: 3,
+    question: "How can you implement request throttling in API Gateway?",
+    options: [
+      "Using Lambda function code",
+      "Using usage plans and API keys",
+      "Using CloudWatch alarms",
+      "Throttling is not supported"
+    ],
+    correctAnswer: 1,
+    explanation: "API Gateway usage plans allow you to configure throttling limits (rate and burst) and quotas for API keys, providing fine-grained control over API usage."
+  },
+  {
+    id: 4,
+    question: "What is the purpose of API Gateway stages?",
+    options: [
+      "To improve performance",
+      "To manage different versions/environments of your API",
+      "To reduce costs",
+      "To enable caching"
+    ],
+    correctAnswer: 1,
+    explanation: "Stages allow you to manage different versions of your API (dev, test, prod) with separate configurations, variables, and endpoints."
+  },
+  {
+    id: 5,
+    question: "Which authentication method is NOT supported by API Gateway?",
+    options: [
+      "AWS IAM",
+      "Amazon Cognito User Pools",
+      "Lambda Authorizers",
+      "Active Directory Federation Services (ADFS)"
+    ],
+    correctAnswer: 3,
+    explanation: "API Gateway supports IAM, Cognito User Pools, and Lambda Authorizers (custom). ADFS is not directly supported, though you could implement it via a Lambda Authorizer."
+  },
+  {
+    id: 6,
+    question: "What is the maximum payload size for API Gateway requests and responses?",
+    options: [
+      "1 MB",
+      "6 MB",
+      "10 MB",
+      "50 MB"
+    ],
+    correctAnswer: 2,
+    explanation: "API Gateway supports a maximum payload size of 10 MB for both requests and responses. For larger payloads, consider using S3 with presigned URLs."
+  },
+  {
+    id: 7,
+    question: "How can you enable CORS (Cross-Origin Resource Sharing) in API Gateway?",
+    options: [
+      "Configure CORS in Lambda function",
+      "Enable CORS in API Gateway console and add OPTIONS method",
+      "Use CloudFront distribution",
+      "CORS is enabled by default"
+    ],
+    correctAnswer: 1,
+    explanation: "Enable CORS in API Gateway by configuring CORS settings and adding an OPTIONS method to handle preflight requests with appropriate headers."
+  },
+  {
+    id: 8,
+    question: "What is the purpose of API Gateway mapping templates?",
+    options: [
+      "To transform request/response payloads between client and backend",
+      "To map API keys to users",
+      "To create API documentation",
+      "To configure routing rules"
+    ],
+    correctAnswer: 0,
+    explanation: "Mapping templates use Velocity Template Language (VTL) to transform request and response payloads, allowing you to modify data structure between client and backend."
+  },
+  {
+    id: 9,
+    question: "Which API Gateway integration type provides the lowest latency?",
+    options: [
+      "Lambda Proxy Integration",
+      "Lambda Custom Integration",
+      "HTTP Proxy Integration",
+      "AWS Service Integration"
+    ],
+    correctAnswer: 2,
+    explanation: "HTTP Proxy Integration passes requests directly to the backend HTTP endpoint with minimal processing, providing the lowest latency."
+  },
+  {
+    id: 10,
+    question: "How can you implement API versioning in API Gateway?",
+    options: [
+      "Using stages only",
+      "Using custom domain names with base path mappings",
+      "Using resource paths (e.g., /v1/, /v2/)",
+      "All of the above"
+    ],
+    correctAnswer: 3,
+    explanation: "API Gateway supports multiple versioning strategies: stages for environment versions, custom domains with base paths for major versions, and resource paths for API versioning."
+  },
+  {
+    id: 11,
+    question: "What is the purpose of API Gateway caching?",
+    options: [
+      "To reduce backend load and improve response times",
+      "To store API keys",
+      "To backup API configurations",
+      "To enable throttling"
+    ],
+    correctAnswer: 0,
+    explanation: "API Gateway caching stores responses for a specified TTL, reducing backend calls and improving response times for repeated requests."
+  },
+  {
+    id: 12,
+    question: "Which HTTP status code should API Gateway return for successful Lambda execution with an error in business logic?",
+    options: [
+      "200 OK",
+      "500 Internal Server Error",
+      "502 Bad Gateway",
+      "It depends on how Lambda returns the error"
+    ],
+    correctAnswer: 3,
+    explanation: "With Lambda proxy integration, the status code depends on how your Lambda function returns the error. You control the status code in the Lambda response."
+  },
+  {
+    id: 13,
+    question: "What is a Lambda Authorizer (formerly Custom Authorizer)?",
+    options: [
+      "A Lambda function that validates API requests and returns IAM policies",
+      "A service that manages Lambda permissions",
+      "A tool for debugging Lambda functions",
+      "A feature for Lambda versioning"
+    ],
+    correctAnswer: 0,
+    explanation: "Lambda Authorizers are Lambda functions that perform custom authentication/authorization logic and return IAM policies to allow or deny API requests."
+  },
+  {
+    id: 14,
+    question: "How can you monitor API Gateway performance and errors?",
+    options: [
+      "CloudWatch Metrics and Logs",
+      "AWS X-Ray",
+      "Access Logging to S3 or CloudWatch Logs",
+      "All of the above"
+    ],
+    correctAnswer: 3,
+    explanation: "API Gateway integrates with CloudWatch (metrics and logs), X-Ray (tracing), and supports access logging for comprehensive monitoring."
+  },
+  {
+    id: 15,
+    question: "What is the difference between REST API and HTTP API in API Gateway?",
+    options: [
+      "HTTP API is newer, cheaper, and faster but has fewer features",
+      "REST API is deprecated",
+      "HTTP API only supports HTTP methods",
+      "There is no difference"
+    ],
+    correctAnswer: 0,
+    explanation: "HTTP APIs are optimized for performance and cost (up to 71% cheaper), but REST APIs offer more features like usage plans, API keys, and request/response transformations."
+  },
+  {
+    id: 16,
+    question: "How can you implement request validation in API Gateway?",
+    options: [
+      "Using request validators with JSON Schema",
+      "Only in Lambda function code",
+      "Using CloudWatch alarms",
+      "Validation is not supported"
+    ],
+    correctAnswer: 0,
+    explanation: "API Gateway supports request validation using request validators that check request parameters and body against JSON Schema models before invoking the backend."
+  },
+  {
+    id: 17,
+    question: "What is the purpose of API Gateway stage variables?",
+    options: [
+      "To store configuration values that can differ between stages",
+      "To define API versions",
+      "To configure caching",
+      "To set up throttling limits"
+    ],
+    correctAnswer: 0,
+    explanation: "Stage variables are name-value pairs that can store configuration values (like Lambda function ARNs, endpoints) that differ between stages (dev, test, prod)."
+  },
+  {
+    id: 18,
+    question: "Which API Gateway feature allows you to transform error responses from Lambda?",
+    options: [
+      "Gateway Responses",
+      "Mapping Templates",
+      "Request Validators",
+      "Lambda Authorizers"
+    ],
+    correctAnswer: 0,
+    explanation: "Gateway Responses allow you to customize error responses (4xx, 5xx) returned by API Gateway, including status codes, headers, and body templates."
+  },
+  {
+    id: 19,
+    question: "How can you secure API Gateway endpoints?",
+    options: [
+      "IAM authentication",
+      "Cognito User Pools",
+      "Lambda Authorizers",
+      "All of the above"
+    ],
+    correctAnswer: 3,
+    explanation: "API Gateway supports multiple security mechanisms: IAM for AWS service-to-service, Cognito for user authentication, and Lambda Authorizers for custom logic."
+  },
+  {
+    id: 20,
+    question: "What is the purpose of API Gateway resource policies?",
+    options: [
+      "To control who can invoke your API",
+      "To define API structure",
+      "To configure caching",
+      "To set up monitoring"
+    ],
+    correctAnswer: 0,
+    explanation: "Resource policies are JSON policy documents that control which principals (users, accounts, VPCs) can invoke your API, similar to S3 bucket policies."
+  },
+  {
+    id: 21,
+    question: "How does API Gateway handle WebSocket connections?",
+    options: [
+      "WebSocket APIs maintain persistent connections with callback URLs",
+      "WebSocket is not supported",
+      "Only through CloudFront",
+      "Using REST API with long polling"
+    ],
+    correctAnswer: 0,
+    explanation: "API Gateway WebSocket APIs maintain persistent connections and use callback URLs to send messages to connected clients, enabling real-time bidirectional communication."
+  },
+  {
+    id: 22,
+    question: "What is the default throttle limit for API Gateway?",
+    options: [
+      "1,000 requests per second with burst of 2,000",
+      "5,000 requests per second with burst of 10,000",
+      "10,000 requests per second with burst of 5,000",
+      "Unlimited"
+    ],
+    correctAnswer: 2,
+    explanation: "API Gateway has a default account-level limit of 10,000 requests per second (RPS) with a burst of 5,000 requests. These are soft limits that can be increased."
+  },
+  {
+    id: 23,
+    question: "How can you implement canary deployments in API Gateway?",
+    options: [
+      "Using stage variables",
+      "Using canary settings in stage deployment",
+      "Using Lambda aliases",
+      "Canary deployments are not supported"
+    ],
+    correctAnswer: 1,
+    explanation: "API Gateway supports canary deployments at the stage level, allowing you to route a percentage of traffic to a new deployment while keeping the rest on the current version."
+  },
+  {
+    id: 24,
+    question: "What is the purpose of API Gateway models?",
+    options: [
+      "To define the structure of request/response payloads using JSON Schema",
+      "To create API documentation",
+      "To configure routing",
+      "To set up authentication"
+    ],
+    correctAnswer: 0,
+    explanation: "Models define the structure and validation rules for request/response payloads using JSON Schema, enabling request validation and documentation generation."
+  },
+  {
+    id: 25,
+    question: "How can you implement rate limiting per API key in API Gateway?",
+    options: [
+      "Using Lambda function code",
+      "Using usage plans with rate and burst limits",
+      "Using CloudWatch alarms",
+      "Rate limiting per key is not supported"
+    ],
+    correctAnswer: 1,
+    explanation: "Usage plans allow you to configure rate limits (requests per second) and burst limits per API key, providing fine-grained throttling control."
+  },
+  {
+    id: 26,
+    question: "What is the difference between Lambda proxy integration and Lambda custom integration?",
+    options: [
+      "Proxy passes the entire request to Lambda; custom requires mapping templates",
+      "Proxy is faster",
+      "Custom is deprecated",
+      "There is no difference"
+    ],
+    correctAnswer: 0,
+    explanation: "Lambda proxy integration passes the entire request as-is to Lambda and expects a specific response format. Custom integration uses mapping templates to transform requests/responses."
+  },
+  {
+    id: 27,
+    question: "How can you enable detailed CloudWatch metrics for API Gateway?",
+    options: [
+      "Enable detailed metrics in stage settings",
+      "Configure in Lambda function",
+      "Use X-Ray",
+      "Detailed metrics are always enabled"
+    ],
+    correctAnswer: 0,
+    explanation: "Detailed CloudWatch metrics (per-method metrics) can be enabled in stage settings, providing granular monitoring at the method level (additional charges apply)."
+  },
+  {
+    id: 28,
+    question: "What is the purpose of API Gateway private endpoints?",
+    options: [
+      "To expose APIs only within a VPC using VPC endpoints",
+      "To reduce costs",
+      "To improve performance",
+      "To enable caching"
+    ],
+    correctAnswer: 0,
+    explanation: "Private APIs are accessible only from within a VPC using VPC endpoints (PrivateLink), providing secure access without internet exposure."
+  },
+  {
+    id: 29,
+    question: "How can you implement request/response data transformation in API Gateway?",
+    options: [
+      "Using mapping templates with VTL",
+      "Using Lambda function code only",
+      "Using CloudFront",
+      "Transformation is not supported"
+    ],
+    correctAnswer: 0,
+    explanation: "Mapping templates use Velocity Template Language (VTL) to transform request and response data, allowing you to modify structure, add/remove fields, and change formats."
+  },
+  {
+    id: 30,
+    question: "What is the maximum cache TTL (Time To Live) in API Gateway?",
+    options: [
+      "300 seconds (5 minutes)",
+      "3600 seconds (1 hour)",
+      "86400 seconds (24 hours)",
+      "No maximum limit"
+    ],
+    correctAnswer: 1,
+    explanation: "API Gateway cache TTL can be configured from 0 to 3600 seconds (1 hour). The default is 300 seconds (5 minutes)."
+  }
+];
+
 // General AWS Developer questions
 export const GENERAL_DEVELOPER_QUESTIONS: QuizQuestion[] = [
   {
@@ -1240,7 +1606,7 @@ export const DEVELOPER_TOPICS: QuizTopic[] = [
     name: 'All Topics',
     icon: '📚',
     description: 'All AWS Developer Associate questions',
-    questions: [...LAMBDA_QUESTIONS, ...DYNAMODB_QUESTIONS, ...GENERAL_DEVELOPER_QUESTIONS]
+    questions: [...LAMBDA_QUESTIONS, ...DYNAMODB_QUESTIONS, ...API_GATEWAY_QUESTIONS, ...GENERAL_DEVELOPER_QUESTIONS]
   },
   {
     id: 'lambda',
@@ -1257,6 +1623,13 @@ export const DEVELOPER_TOPICS: QuizTopic[] = [
     questions: DYNAMODB_QUESTIONS
   },
   {
+    id: 'api-gateway',
+    name: 'API Gateway',
+    icon: '🚪',
+    description: 'RESTful API management service questions',
+    questions: API_GATEWAY_QUESTIONS
+  },
+  {
     id: 'general',
     name: 'General',
     icon: '⚙️',
@@ -1269,6 +1642,7 @@ export const DEVELOPER_TOPICS: QuizTopic[] = [
 export const DEVELOPER_QUESTIONS: QuizQuestion[] = [
   ...LAMBDA_QUESTIONS,
   ...DYNAMODB_QUESTIONS,
+  ...API_GATEWAY_QUESTIONS,
   ...GENERAL_DEVELOPER_QUESTIONS
 ];
 
