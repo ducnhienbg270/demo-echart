@@ -6,6 +6,14 @@ export interface QuizQuestion {
   explanation: string;
 }
 
+export interface QuizTopic {
+  id: string;
+  name: string;
+  icon: string;
+  description: string;
+  questions: QuizQuestion[];
+}
+
 export const SOLUTIONS_ARCHITECT_QUESTIONS: QuizQuestion[] = [
   {
     id: 1,
@@ -735,8 +743,374 @@ export const LAMBDA_QUESTIONS: QuizQuestion[] = [
   }
 ];
 
-export const DEVELOPER_QUESTIONS: QuizQuestion[] = [
-  ...LAMBDA_QUESTIONS,
+// ============================================
+// AWS DYNAMODB QUESTIONS - Developer Associate
+// ============================================
+export const DYNAMODB_QUESTIONS: QuizQuestion[] = [
+  {
+    id: 1,
+    question: "What is the maximum size of an item in DynamoDB?",
+    options: [
+      "100 KB",
+      "256 KB",
+      "400 KB",
+      "1 MB"
+    ],
+    correctAnswer: 2,
+    explanation: "DynamoDB items have a maximum size of 400 KB, including both attribute names and values. This includes all attributes in the item."
+  },
+  {
+    id: 2,
+    question: "Which DynamoDB feature allows you to automatically delete expired items?",
+    options: [
+      "DynamoDB Streams",
+      "Time To Live (TTL)",
+      "Global Secondary Index",
+      "DynamoDB Accelerator (DAX)"
+    ],
+    correctAnswer: 1,
+    explanation: "Time To Live (TTL) allows you to define a per-item timestamp to determine when an item is no longer needed. DynamoDB automatically deletes expired items without consuming write throughput."
+  },
+  {
+    id: 3,
+    question: "What is the difference between a Local Secondary Index (LSI) and a Global Secondary Index (GSI)?",
+    options: [
+      "LSI can be created anytime, GSI must be created with the table",
+      "LSI shares throughput with the table, GSI has its own throughput",
+      "LSI is faster than GSI",
+      "There is no difference"
+    ],
+    correctAnswer: 1,
+    explanation: "LSI must be created when the table is created and shares the table's throughput. GSI can be created anytime and has its own provisioned throughput separate from the base table."
+  },
+  {
+    id: 4,
+    question: "A developer needs to read 10 items of 4 KB each from DynamoDB with strong consistency. How many Read Capacity Units (RCUs) are required?",
+    options: [
+      "10 RCUs",
+      "20 RCUs",
+      "40 RCUs",
+      "80 RCUs"
+    ],
+    correctAnswer: 1,
+    explanation: "Each strongly consistent read of up to 4 KB requires 1 RCU. For 10 items of 4 KB each: 10 items × 1 RCU = 10 RCUs. However, you need to round up each item to the nearest 4 KB, so 10 items × 2 RCUs (since 4KB rounds to 4KB = 1 RCU, but strong consistency doubles it) = 20 RCUs."
+  },
+  {
+    id: 5,
+    question: "What is DynamoDB Accelerator (DAX)?",
+    options: [
+      "A backup service for DynamoDB",
+      "An in-memory cache for DynamoDB",
+      "A migration tool for DynamoDB",
+      "A monitoring service for DynamoDB"
+    ],
+    correctAnswer: 1,
+    explanation: "DAX is a fully managed, in-memory cache for DynamoDB that delivers up to 10x performance improvement, reducing response times from milliseconds to microseconds."
+  },
+  {
+    id: 6,
+    question: "Which DynamoDB operation is most efficient for retrieving multiple items by their primary keys?",
+    options: [
+      "Scan",
+      "Query",
+      "BatchGetItem",
+      "GetItem in a loop"
+    ],
+    correctAnswer: 2,
+    explanation: "BatchGetItem retrieves multiple items from one or more tables using their primary keys in a single request, making it more efficient than multiple GetItem calls."
+  },
+  {
+    id: 7,
+    question: "What is the purpose of DynamoDB Streams?",
+    options: [
+      "To backup data to S3",
+      "To capture item-level changes in near real-time",
+      "To improve query performance",
+      "To reduce storage costs"
+    ],
+    correctAnswer: 1,
+    explanation: "DynamoDB Streams captures a time-ordered sequence of item-level modifications (create, update, delete) and stores them for up to 24 hours, enabling real-time processing and replication."
+  },
+  {
+    id: 8,
+    question: "A table has a partition key 'userId' and sort key 'timestamp'. Which query is most efficient?",
+    options: [
+      "Query with only sort key",
+      "Query with only partition key",
+      "Query with partition key and sort key condition",
+      "Scan with filter expression"
+    ],
+    correctAnswer: 2,
+    explanation: "Queries must specify the partition key and can optionally filter on the sort key. Querying with both partition key and sort key condition is most efficient as it narrows down the results."
+  },
+  {
+    id: 9,
+    question: "What happens when you exceed the provisioned throughput on a DynamoDB table?",
+    options: [
+      "Requests are queued automatically",
+      "Requests are throttled and return ProvisionedThroughputExceededException",
+      "The table is automatically scaled",
+      "Requests are processed slowly"
+    ],
+    correctAnswer: 1,
+    explanation: "When you exceed provisioned throughput, DynamoDB throttles requests and returns a ProvisionedThroughputExceededException. You should implement exponential backoff retry logic."
+  },
+  {
+    id: 10,
+    question: "Which DynamoDB capacity mode is best for unpredictable workloads?",
+    options: [
+      "Provisioned capacity mode",
+      "On-demand capacity mode",
+      "Reserved capacity mode",
+      "Burst capacity mode"
+    ],
+    correctAnswer: 1,
+    explanation: "On-demand capacity mode automatically scales to accommodate workload demands without capacity planning, making it ideal for unpredictable traffic patterns."
+  },
+  {
+    id: 11,
+    question: "What is the maximum number of Global Secondary Indexes (GSIs) per table?",
+    options: [
+      "5",
+      "10",
+      "20",
+      "Unlimited"
+    ],
+    correctAnswer: 2,
+    explanation: "DynamoDB allows up to 20 Global Secondary Indexes per table. Each GSI can have a different partition key and sort key from the base table."
+  },
+  {
+    id: 12,
+    question: "How does DynamoDB handle conditional writes?",
+    options: [
+      "They are not supported",
+      "Using condition expressions that must evaluate to true",
+      "Using transactions only",
+      "Automatically with optimistic locking"
+    ],
+    correctAnswer: 1,
+    explanation: "DynamoDB supports conditional writes using condition expressions. The write only succeeds if the condition evaluates to true, enabling optimistic locking patterns."
+  },
+  {
+    id: 13,
+    question: "What is the difference between eventually consistent and strongly consistent reads?",
+    options: [
+      "Eventually consistent is faster and cheaper",
+      "Strongly consistent always returns the latest data",
+      "Eventually consistent may not reflect recent writes",
+      "All of the above"
+    ],
+    correctAnswer: 3,
+    explanation: "Eventually consistent reads are faster, cheaper (half the RCUs), but may not reflect recent writes. Strongly consistent reads always return the most up-to-date data but cost twice as much."
+  },
+  {
+    id: 14,
+    question: "A developer needs to update multiple items across multiple tables atomically. Which feature should they use?",
+    options: [
+      "BatchWriteItem",
+      "DynamoDB Transactions",
+      "DynamoDB Streams",
+      "Conditional writes"
+    ],
+    correctAnswer: 1,
+    explanation: "DynamoDB Transactions provide ACID properties, allowing you to perform coordinated, all-or-nothing changes across multiple items and tables."
+  },
+  {
+    id: 15,
+    question: "What is the purpose of a sparse index in DynamoDB?",
+    options: [
+      "To reduce storage costs",
+      "To index only items that have the indexed attribute",
+      "To improve query performance",
+      "To enable full-text search"
+    ],
+    correctAnswer: 1,
+    explanation: "A sparse index only includes items that have the indexed attribute. This is useful when you want to query a subset of items and reduce index storage costs."
+  },
+  {
+    id: 16,
+    question: "How can you implement pagination in DynamoDB queries?",
+    options: [
+      "Using OFFSET and LIMIT",
+      "Using LastEvaluatedKey and ExclusiveStartKey",
+      "Using page numbers",
+      "Pagination is not supported"
+    ],
+    correctAnswer: 1,
+    explanation: "DynamoDB uses LastEvaluatedKey (returned in response) and ExclusiveStartKey (in next request) for pagination, allowing you to retrieve results in pages."
+  },
+  {
+    id: 17,
+    question: "What is the maximum size of a DynamoDB transaction?",
+    options: [
+      "10 items or 4 MB",
+      "25 items or 4 MB",
+      "100 items or 4 MB",
+      "Unlimited"
+    ],
+    correctAnswer: 1,
+    explanation: "A DynamoDB transaction can include up to 25 unique items or 4 MB of data, whichever comes first. This applies to both TransactWriteItems and TransactGetItems."
+  },
+  {
+    id: 18,
+    question: "Which operation is most cost-effective for retrieving all items from a large table?",
+    options: [
+      "Query",
+      "Scan with parallel segments",
+      "BatchGetItem",
+      "GetItem in a loop"
+    ],
+    correctAnswer: 1,
+    explanation: "For retrieving all items, Scan is necessary. Using parallel scans with multiple segments can significantly improve performance by distributing the workload."
+  },
+  {
+    id: 19,
+    question: "What is the purpose of projection expressions in DynamoDB?",
+    options: [
+      "To create new indexes",
+      "To specify which attributes to retrieve",
+      "To filter query results",
+      "To sort results"
+    ],
+    correctAnswer: 1,
+    explanation: "Projection expressions specify which attributes to retrieve from DynamoDB, reducing data transfer and costs by only returning the attributes you need."
+  },
+  {
+    id: 20,
+    question: "How does DynamoDB handle hot partitions?",
+    options: [
+      "Automatically splits partitions",
+      "Throttles all requests",
+      "Requires manual intervention",
+      "Uses adaptive capacity to isolate hot partitions"
+    ],
+    correctAnswer: 3,
+    explanation: "DynamoDB uses adaptive capacity to automatically isolate frequently accessed items to separate partitions, helping to prevent hot partition issues."
+  },
+  {
+    id: 21,
+    question: "What is the difference between PutItem and UpdateItem?",
+    options: [
+      "PutItem replaces the entire item, UpdateItem modifies specific attributes",
+      "PutItem is faster than UpdateItem",
+      "UpdateItem requires a condition expression",
+      "There is no difference"
+    ],
+    correctAnswer: 0,
+    explanation: "PutItem creates a new item or replaces an existing item entirely. UpdateItem modifies specific attributes of an existing item without affecting other attributes."
+  },
+  {
+    id: 22,
+    question: "Which DynamoDB feature allows you to replicate tables across multiple regions?",
+    options: [
+      "DynamoDB Streams",
+      "Global Tables",
+      "Cross-region replication",
+      "Multi-region backup"
+    ],
+    correctAnswer: 1,
+    explanation: "DynamoDB Global Tables provide fully managed, multi-region, multi-master replication with automatic conflict resolution and low-latency access."
+  },
+  {
+    id: 23,
+    question: "What is the maximum number of Local Secondary Indexes (LSIs) per table?",
+    options: [
+      "5",
+      "10",
+      "20",
+      "Unlimited"
+    ],
+    correctAnswer: 0,
+    explanation: "DynamoDB allows up to 5 Local Secondary Indexes per table. LSIs must be created when the table is created and share the same partition key as the base table."
+  },
+  {
+    id: 24,
+    question: "How can you implement optimistic locking in DynamoDB?",
+    options: [
+      "Using DynamoDB Transactions",
+      "Using a version number attribute with conditional writes",
+      "Using DynamoDB Streams",
+      "It's not possible"
+    ],
+    correctAnswer: 1,
+    explanation: "Optimistic locking is implemented using a version number attribute. Before updating, check that the version hasn't changed using a conditional write expression."
+  },
+  {
+    id: 25,
+    question: "What is the purpose of filter expressions in DynamoDB?",
+    options: [
+      "To reduce RCU consumption",
+      "To filter results after the query/scan but before returning to client",
+      "To create indexes",
+      "To improve query performance"
+    ],
+    correctAnswer: 1,
+    explanation: "Filter expressions are applied after the query/scan reads items but before returning results. They don't reduce RCU consumption but reduce data transfer to the client."
+  },
+  {
+    id: 26,
+    question: "Which attribute type is best for storing binary data in DynamoDB?",
+    options: [
+      "String (S)",
+      "Number (N)",
+      "Binary (B)",
+      "List (L)"
+    ],
+    correctAnswer: 2,
+    explanation: "The Binary (B) attribute type is designed for storing binary data such as images, compressed files, or encrypted data in DynamoDB."
+  },
+  {
+    id: 27,
+    question: "What happens to DynamoDB Streams records?",
+    options: [
+      "They are stored permanently",
+      "They are stored for 24 hours",
+      "They are stored for 7 days",
+      "They are stored for 30 days"
+    ],
+    correctAnswer: 1,
+    explanation: "DynamoDB Streams records are stored for 24 hours. After that, they are automatically deleted. You should process stream records within this time window."
+  },
+  {
+    id: 28,
+    question: "How can you implement a counter in DynamoDB?",
+    options: [
+      "Using PutItem with a new value",
+      "Using UpdateItem with ADD action",
+      "Using atomic counters with UpdateItem",
+      "Both B and C"
+    ],
+    correctAnswer: 3,
+    explanation: "DynamoDB supports atomic counters using UpdateItem with the ADD action, which atomically increments or decrements a numeric attribute without race conditions."
+  },
+  {
+    id: 29,
+    question: "What is the purpose of the ReturnValues parameter in DynamoDB operations?",
+    options: [
+      "To specify which attributes to return after the operation",
+      "To enable transactions",
+      "To improve performance",
+      "To reduce costs"
+    ],
+    correctAnswer: 0,
+    explanation: "ReturnValues specifies what data to return after write operations (NONE, ALL_OLD, UPDATED_OLD, ALL_NEW, UPDATED_NEW), useful for getting the item state before or after the update."
+  },
+  {
+    id: 30,
+    question: "Which DynamoDB feature provides point-in-time recovery?",
+    options: [
+      "DynamoDB Streams",
+      "On-demand backups",
+      "Point-in-time recovery (PITR)",
+      "Global Tables"
+    ],
+    correctAnswer: 2,
+    explanation: "Point-in-time recovery (PITR) provides continuous backups of your DynamoDB table data, allowing you to restore to any point in time within the last 35 days."
+  }
+];
+
+// General AWS Developer questions
+export const GENERAL_DEVELOPER_QUESTIONS: QuizQuestion[] = [
   {
     id: 31,
     question: "A developer needs to deploy a Node.js application quickly without managing infrastructure. Which service is most appropriate?",
@@ -857,6 +1231,45 @@ export const DEVELOPER_QUESTIONS: QuizQuestion[] = [
     correctAnswer: 1,
     explanation: "DynamoDB offers serverless, pay-per-request pricing with fast access times, making it ideal for session storage in serverless applications."
   }
+];
+
+// Topic-based organization
+export const DEVELOPER_TOPICS: QuizTopic[] = [
+  {
+    id: 'all',
+    name: 'All Topics',
+    icon: '📚',
+    description: 'All AWS Developer Associate questions',
+    questions: [...LAMBDA_QUESTIONS, ...DYNAMODB_QUESTIONS, ...GENERAL_DEVELOPER_QUESTIONS]
+  },
+  {
+    id: 'lambda',
+    name: 'AWS Lambda',
+    icon: 'λ',
+    description: 'Serverless compute service questions',
+    questions: LAMBDA_QUESTIONS
+  },
+  {
+    id: 'dynamodb',
+    name: 'DynamoDB',
+    icon: '🗄️',
+    description: 'NoSQL database service questions',
+    questions: DYNAMODB_QUESTIONS
+  },
+  {
+    id: 'general',
+    name: 'General',
+    icon: '⚙️',
+    description: 'General AWS Developer topics',
+    questions: GENERAL_DEVELOPER_QUESTIONS
+  }
+];
+
+// Keep backward compatibility
+export const DEVELOPER_QUESTIONS: QuizQuestion[] = [
+  ...LAMBDA_QUESTIONS,
+  ...DYNAMODB_QUESTIONS,
+  ...GENERAL_DEVELOPER_QUESTIONS
 ];
 
 // Made with Bob

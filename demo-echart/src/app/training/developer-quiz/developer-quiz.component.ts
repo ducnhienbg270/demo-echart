@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DEVELOPER_QUESTIONS, QuizQuestion } from '../quiz-data.mock';
+import { DEVELOPER_TOPICS, QuizQuestion, QuizTopic } from '../quiz-data.mock';
 
 @Component({
   selector: 'app-developer-quiz',
@@ -10,7 +10,12 @@ export class DeveloperQuizComponent implements OnInit {
   // Expose String to template
   String = String;
   
-  questions: QuizQuestion[] = DEVELOPER_QUESTIONS;
+  // Topic management
+  topics: QuizTopic[] = DEVELOPER_TOPICS;
+  selectedTopic: QuizTopic = DEVELOPER_TOPICS[0]; // Default to 'All Topics'
+  showTopicMenu = true;
+  
+  questions: QuizQuestion[] = [];
 
   currentQuestionIndex = 0;
   selectedAnswer: number | null = null;
@@ -20,7 +25,28 @@ export class DeveloperQuizComponent implements OnInit {
   quizCompleted = false;
 
   ngOnInit(): void {
+    // Don't initialize questions yet, wait for topic selection
+  }
+
+  selectTopic(topic: QuizTopic): void {
+    this.selectedTopic = topic;
+    this.questions = [...topic.questions]; // Create a copy
+    this.showTopicMenu = false;
+    this.resetQuiz();
+  }
+
+  backToTopicMenu(): void {
+    this.showTopicMenu = true;
+    this.resetQuiz();
+  }
+
+  resetQuiz(): void {
+    this.currentQuestionIndex = 0;
+    this.selectedAnswer = null;
+    this.showExplanation = false;
+    this.score = 0;
     this.answeredQuestions = new Array(this.questions.length).fill(false);
+    this.quizCompleted = false;
   }
 
   get currentQuestion(): QuizQuestion {
@@ -67,12 +93,7 @@ export class DeveloperQuizComponent implements OnInit {
   }
 
   restartQuiz(): void {
-    this.currentQuestionIndex = 0;
-    this.selectedAnswer = null;
-    this.showExplanation = false;
-    this.score = 0;
-    this.answeredQuestions = new Array(this.questions.length).fill(false);
-    this.quizCompleted = false;
+    this.resetQuiz();
   }
 
   getScorePercentage(): number {

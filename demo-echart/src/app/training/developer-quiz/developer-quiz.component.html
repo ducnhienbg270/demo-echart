@@ -1,7 +1,29 @@
 <div class="quiz-container">
+  <!-- Topic Selection Menu -->
+  <div class="topic-menu" *ngIf="showTopicMenu">
+    <div class="topic-header">
+      <h1>💻 AWS Developer Associate</h1>
+      <p class="topic-subtitle">Choose a topic to start your quiz</p>
+    </div>
+    
+    <div class="topic-grid">
+      <div *ngFor="let topic of topics"
+           class="topic-card"
+           (click)="selectTopic(topic)">
+        <div class="topic-icon">{{ topic.icon }}</div>
+        <h3 class="topic-name">{{ topic.name }}</h3>
+        <p class="topic-description">{{ topic.description }}</p>
+        <div class="topic-count">{{ topic.questions.length }} questions</div>
+      </div>
+    </div>
+  </div>
+
   <!-- Quiz Header -->
-  <div class="quiz-header">
-    <h1>💻 AWS Developer Associate</h1>
+  <div class="quiz-header" *ngIf="!showTopicMenu">
+    <div class="header-top">
+      <button class="btn-back" (click)="backToTopicMenu()">← Back to Topics</button>
+      <h1>{{ selectedTopic.icon }} {{ selectedTopic.name }}</h1>
+    </div>
     <div class="progress-bar">
       <div class="progress-fill" [style.width.%]="progress"></div>
     </div>
@@ -9,7 +31,7 @@
   </div>
 
   <!-- Quiz Content -->
-  <div class="quiz-content" *ngIf="!quizCompleted">
+  <div class="quiz-content" *ngIf="!quizCompleted && !showTopicMenu">
     <div class="question-card">
       <h2 class="question-text">{{ currentQuestion.question }}</h2>
       
@@ -59,7 +81,7 @@
   </div>
 
   <!-- Results Screen -->
-  <div class="results-screen" *ngIf="quizCompleted">
+  <div class="results-screen" *ngIf="quizCompleted && !showTopicMenu">
     <div class="results-card">
       <div class="results-icon">🎯</div>
       <h2>Quiz Results</h2>
@@ -91,6 +113,9 @@
       <div class="results-actions">
         <button class="btn btn-primary" (click)="restartQuiz()">
           Retry Quiz
+        </button>
+        <button class="btn btn-secondary" (click)="backToTopicMenu()">
+          Choose Another Topic
         </button>
         <a routerLink="/training" class="btn btn-secondary">
           Back to Training
