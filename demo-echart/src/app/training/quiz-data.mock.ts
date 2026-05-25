@@ -1841,6 +1841,1104 @@ export const IAM_QUESTIONS: QuizQuestion[] = [
   }
 ];
 
+// ============================================
+// AWS SQS/SNS QUESTIONS - Developer Associate
+// ============================================
+export const SQS_SNS_QUESTIONS: QuizQuestion[] = [
+  {
+    id: 1,
+    question: "What is the maximum message size for Amazon SQS?",
+    options: [
+      "64 KB",
+      "256 KB",
+      "512 KB",
+      "1 MB"
+    ],
+    correctAnswer: 1,
+    explanation: "Amazon SQS supports messages up to 256 KB in size. For larger messages, use the Extended Client Library with S3."
+  },
+  {
+    id: 2,
+    question: "What is the difference between SQS Standard and FIFO queues?",
+    options: [
+      "Standard has unlimited throughput, FIFO guarantees order",
+      "FIFO is faster than Standard",
+      "Standard is more expensive",
+      "There is no difference"
+    ],
+    correctAnswer: 0,
+    explanation: "Standard queues offer unlimited throughput and at-least-once delivery. FIFO queues guarantee exactly-once processing and preserve message order, but have limited throughput (300 TPS without batching, 3000 with batching)."
+  },
+  {
+    id: 3,
+    question: "What is the maximum retention period for messages in SQS?",
+    options: [
+      "1 day",
+      "7 days",
+      "14 days",
+      "30 days"
+    ],
+    correctAnswer: 2,
+    explanation: "SQS can retain messages for up to 14 days. The default retention period is 4 days, and the minimum is 60 seconds."
+  },
+  {
+    id: 4,
+    question: "What is the purpose of SQS visibility timeout?",
+    options: [
+      "To hide messages from all consumers",
+      "To prevent other consumers from processing a message being processed",
+      "To delete messages automatically",
+      "To encrypt messages"
+    ],
+    correctAnswer: 1,
+    explanation: "Visibility timeout prevents other consumers from receiving and processing a message while it's being processed by another consumer. Default is 30 seconds, maximum is 12 hours."
+  },
+  {
+    id: 5,
+    question: "What is the maximum number of messages that can be retrieved in a single SQS ReceiveMessage call?",
+    options: [
+      "1 message",
+      "10 messages",
+      "100 messages",
+      "1000 messages"
+    ],
+    correctAnswer: 1,
+    explanation: "A single ReceiveMessage call can retrieve up to 10 messages from the queue. This helps reduce API calls and improve efficiency."
+  },
+  {
+    id: 6,
+    question: "What is an SQS Dead Letter Queue (DLQ)?",
+    options: [
+      "A queue for deleted messages",
+      "A queue for messages that failed processing after maximum retries",
+      "A backup queue",
+      "A queue for error logs"
+    ],
+    correctAnswer: 1,
+    explanation: "A DLQ is used to store messages that couldn't be processed successfully after a specified number of attempts (maxReceiveCount), allowing you to analyze and debug failures."
+  },
+  {
+    id: 7,
+    question: "What is the difference between short polling and long polling in SQS?",
+    options: [
+      "Short polling returns immediately, long polling waits for messages",
+      "Long polling is more expensive",
+      "Short polling is deprecated",
+      "There is no difference"
+    ],
+    correctAnswer: 0,
+    explanation: "Short polling returns immediately (even if empty), potentially causing empty responses. Long polling waits up to 20 seconds for messages, reducing empty responses and costs."
+  },
+  {
+    id: 8,
+    question: "What is the purpose of SNS message filtering?",
+    options: [
+      "To encrypt messages",
+      "To route messages to specific subscribers based on attributes",
+      "To delete unwanted messages",
+      "To compress messages"
+    ],
+    correctAnswer: 1,
+    explanation: "SNS message filtering allows subscribers to receive only messages they're interested in by defining filter policies based on message attributes, reducing unnecessary processing."
+  },
+  {
+    id: 9,
+    question: "What is the maximum size of an SNS message?",
+    options: [
+      "64 KB",
+      "256 KB",
+      "512 KB",
+      "1 MB"
+    ],
+    correctAnswer: 1,
+    explanation: "SNS supports messages up to 256 KB in size. For larger payloads, store the data in S3 and send a reference in the SNS message."
+  },
+  {
+    id: 10,
+    question: "How can you implement fan-out pattern in AWS?",
+    options: [
+      "Using multiple SQS queues",
+      "Using SNS topic with multiple SQS queue subscriptions",
+      "Using Lambda functions",
+      "Using API Gateway"
+    ],
+    correctAnswer: 1,
+    explanation: "The fan-out pattern is implemented by publishing to an SNS topic that has multiple SQS queues subscribed, allowing one message to be delivered to multiple consumers."
+  },
+  {
+    id: 11,
+    question: "What is SQS message deduplication?",
+    options: [
+      "Removing duplicate messages in Standard queues",
+      "Ensuring exactly-once processing in FIFO queues",
+      "Compressing messages",
+      "Encrypting messages"
+    ],
+    correctAnswer: 1,
+    explanation: "Message deduplication in FIFO queues prevents duplicate messages from being sent within a 5-minute deduplication interval using deduplication IDs."
+  },
+  {
+    id: 12,
+    question: "What is the purpose of SQS delay queues?",
+    options: [
+      "To slow down message processing",
+      "To postpone delivery of new messages for a specified time",
+      "To increase throughput",
+      "To encrypt messages"
+    ],
+    correctAnswer: 1,
+    explanation: "Delay queues postpone delivery of new messages for up to 15 minutes, useful for implementing delayed processing or retry logic."
+  },
+  {
+    id: 13,
+    question: "What protocols does SNS support for message delivery?",
+    options: [
+      "HTTP/HTTPS only",
+      "HTTP/HTTPS, Email, SMS, SQS, Lambda",
+      "Email only",
+      "SQS only"
+    ],
+    correctAnswer: 1,
+    explanation: "SNS supports multiple protocols: HTTP/HTTPS endpoints, Email/Email-JSON, SMS, SQS queues, Lambda functions, and mobile push notifications."
+  },
+  {
+    id: 14,
+    question: "What is the maximum number of SNS subscriptions per topic?",
+    options: [
+      "100",
+      "1,000",
+      "12,500,000",
+      "Unlimited"
+    ],
+    correctAnswer: 2,
+    explanation: "An SNS topic can have up to 12,500,000 subscriptions. This allows for massive fan-out scenarios."
+  },
+  {
+    id: 15,
+    question: "How can you ensure message ordering in SQS?",
+    options: [
+      "Use Standard queues with timestamps",
+      "Use FIFO queues with message group IDs",
+      "Message ordering is not possible",
+      "Use multiple queues"
+    ],
+    correctAnswer: 1,
+    explanation: "FIFO queues with message group IDs ensure strict ordering within each group. Messages in the same group are processed in order."
+  },
+  {
+    id: 16,
+    question: "What is the purpose of SNS message attributes?",
+    options: [
+      "To encrypt messages",
+      "To add metadata for filtering and routing",
+      "To compress messages",
+      "To delete messages"
+    ],
+    correctAnswer: 1,
+    explanation: "Message attributes are key-value pairs that provide metadata about the message, used for filtering, routing, and processing logic without parsing the message body."
+  },
+  {
+    id: 17,
+    question: "What happens when an SQS message is not deleted after processing?",
+    options: [
+      "It's permanently lost",
+      "It becomes visible again after visibility timeout",
+      "It's automatically deleted",
+      "It's moved to DLQ"
+    ],
+    correctAnswer: 1,
+    explanation: "If a message isn't deleted after processing, it becomes visible again after the visibility timeout expires, allowing another consumer to process it."
+  },
+  {
+    id: 18,
+    question: "What is the maximum batch size for SQS SendMessageBatch?",
+    options: [
+      "5 messages",
+      "10 messages",
+      "25 messages",
+      "100 messages"
+    ],
+    correctAnswer: 1,
+    explanation: "SendMessageBatch can send up to 10 messages in a single request, reducing API calls and improving throughput."
+  },
+  {
+    id: 19,
+    question: "How can you implement message priority in SQS?",
+    options: [
+      "Use message attributes",
+      "Use multiple queues with different priorities",
+      "SQS doesn't support priority",
+      "Use FIFO queues"
+    ],
+    correctAnswer: 1,
+    explanation: "SQS doesn't have built-in priority. Implement it using multiple queues (high, medium, low priority) and process high-priority queues first."
+  },
+  {
+    id: 20,
+    question: "What is SNS FIFO topic?",
+    options: [
+      "A topic that guarantees message ordering and deduplication",
+      "A faster SNS topic",
+      "A topic for file storage",
+      "SNS doesn't have FIFO topics"
+    ],
+    correctAnswer: 0,
+    explanation: "SNS FIFO topics guarantee message ordering and exactly-once delivery, similar to SQS FIFO queues. They can only deliver to SQS FIFO queues."
+  },
+  {
+    id: 21,
+    question: "What is the purpose of SQS message timers?",
+    options: [
+      "To measure processing time",
+      "To delay individual messages",
+      "To set message expiration",
+      "To schedule message delivery"
+    ],
+    correctAnswer: 1,
+    explanation: "Message timers allow you to delay individual messages (0 to 15 minutes), overriding the queue's delay setting for specific messages."
+  },
+  {
+    id: 22,
+    question: "How can you secure SNS topics?",
+    options: [
+      "SNS topics are public by default",
+      "Use topic policies and IAM policies",
+      "Encryption only",
+      "Security is not supported"
+    ],
+    correctAnswer: 1,
+    explanation: "Secure SNS topics using topic policies (resource-based) and IAM policies (identity-based), along with encryption at rest and in transit."
+  },
+  {
+    id: 23,
+    question: "What is the maximum visibility timeout for SQS?",
+    options: [
+      "30 seconds",
+      "5 minutes",
+      "12 hours",
+      "24 hours"
+    ],
+    correctAnswer: 2,
+    explanation: "The maximum visibility timeout is 12 hours. The default is 30 seconds, and the minimum is 0 seconds."
+  },
+  {
+    id: 24,
+    question: "What is the purpose of SNS message delivery status?",
+    options: [
+      "To track message delivery success/failure",
+      "To encrypt messages",
+      "To filter messages",
+      "To compress messages"
+    ],
+    correctAnswer: 0,
+    explanation: "Message delivery status logging tracks whether messages were successfully delivered to endpoints, helping with monitoring and troubleshooting."
+  },
+  {
+    id: 25,
+    question: "How can you implement request-response pattern with SQS?",
+    options: [
+      "Use two queues: request and response",
+      "Use SNS instead",
+      "Request-response is not possible",
+      "Use Lambda functions"
+    ],
+    correctAnswer: 0,
+    explanation: "Implement request-response using two queues: one for requests and one for responses, with correlation IDs to match requests with responses."
+  },
+  {
+    id: 26,
+    question: "What is the cost model for SQS?",
+    options: [
+      "Pay per queue",
+      "Pay per request (send, receive, delete)",
+      "Pay per message size",
+      "Free service"
+    ],
+    correctAnswer: 1,
+    explanation: "SQS charges per request (1 million requests free tier), with additional charges for data transfer. FIFO queues cost more than Standard queues."
+  },
+  {
+    id: 27,
+    question: "What is SNS raw message delivery?",
+    options: [
+      "Unencrypted messages",
+      "Delivering message body without SNS metadata wrapper",
+      "Faster delivery",
+      "Compressed messages"
+    ],
+    correctAnswer: 1,
+    explanation: "Raw message delivery sends only the message body to SQS/HTTP endpoints without SNS metadata wrapper, simplifying message processing."
+  },
+  {
+    id: 28,
+    question: "How can you monitor SQS queue depth?",
+    options: [
+      "CloudWatch metric ApproximateNumberOfMessages",
+      "SQS Console only",
+      "Manual counting",
+      "Monitoring is not available"
+    ],
+    correctAnswer: 0,
+    explanation: "Use CloudWatch metric 'ApproximateNumberOfMessages' to monitor queue depth and set alarms for scaling or alerting."
+  },
+  {
+    id: 29,
+    question: "What is the purpose of SQS content-based deduplication?",
+    options: [
+      "To compress messages",
+      "To automatically generate deduplication IDs from message body",
+      "To encrypt messages",
+      "To filter messages"
+    ],
+    correctAnswer: 1,
+    explanation: "Content-based deduplication in FIFO queues automatically generates deduplication IDs using SHA-256 hash of the message body, eliminating the need to provide deduplication IDs."
+  },
+  {
+    id: 30,
+    question: "What is the maximum throughput for SNS?",
+    options: [
+      "1,000 TPS",
+      "10,000 TPS",
+      "100,000 TPS",
+      "Unlimited (with soft limits)"
+    ],
+    correctAnswer: 3,
+    explanation: "SNS has very high throughput with soft limits that can be increased. Standard topics support unlimited throughput, while FIFO topics have limits similar to SQS FIFO."
+  }
+];
+
+// ============================================
+// AWS CLOUDWATCH QUESTIONS - Developer Associate
+// ============================================
+export const CLOUDWATCH_QUESTIONS: QuizQuestion[] = [
+  {
+    id: 1,
+    question: "What is the default metric resolution for CloudWatch?",
+    options: [
+      "1 second",
+      "1 minute",
+      "5 minutes",
+      "15 minutes"
+    ],
+    correctAnswer: 1,
+    explanation: "The default (standard) resolution for CloudWatch metrics is 1 minute. High-resolution metrics can be published at 1-second intervals."
+  },
+  {
+    id: 2,
+    question: "What is the maximum retention period for CloudWatch Logs?",
+    options: [
+      "30 days",
+      "90 days",
+      "1 year",
+      "Indefinite (never expire)"
+    ],
+    correctAnswer: 3,
+    explanation: "CloudWatch Logs can be retained indefinitely (never expire) or configured to expire after 1 day to 10 years. The default is never expire."
+  },
+  {
+    id: 3,
+    question: "What is a CloudWatch custom metric?",
+    options: [
+      "A metric created by AWS services",
+      "A metric you publish from your application",
+      "A metric for cost monitoring",
+      "A deprecated feature"
+    ],
+    correctAnswer: 1,
+    explanation: "Custom metrics are metrics you define and publish from your applications using the PutMetricData API, allowing you to monitor application-specific data."
+  },
+  {
+    id: 4,
+    question: "What is the purpose of CloudWatch Alarms?",
+    options: [
+      "To encrypt logs",
+      "To trigger actions based on metric thresholds",
+      "To backup data",
+      "To compress logs"
+    ],
+    correctAnswer: 1,
+    explanation: "CloudWatch Alarms monitor metrics and trigger actions (SNS notifications, Auto Scaling, EC2 actions) when thresholds are breached."
+  },
+  {
+    id: 5,
+    question: "What is CloudWatch Logs Insights?",
+    options: [
+      "A log storage service",
+      "A query language for analyzing log data",
+      "A log encryption service",
+      "A log backup service"
+    ],
+    correctAnswer: 1,
+    explanation: "CloudWatch Logs Insights is an interactive query service for analyzing log data using a purpose-built query language, providing fast analysis of large log volumes."
+  },
+  {
+    id: 6,
+    question: "What is the maximum number of dimensions per CloudWatch metric?",
+    options: [
+      "5 dimensions",
+      "10 dimensions",
+      "30 dimensions",
+      "Unlimited"
+    ],
+    correctAnswer: 2,
+    explanation: "A CloudWatch metric can have up to 30 dimensions. Dimensions are name-value pairs that help identify the metric (e.g., InstanceId, InstanceType)."
+  },
+  {
+    id: 7,
+    question: "What is CloudWatch Events (now EventBridge)?",
+    options: [
+      "A log storage service",
+      "A service for responding to state changes in AWS resources",
+      "A metric collection service",
+      "A backup service"
+    ],
+    correctAnswer: 1,
+    explanation: "CloudWatch Events (now Amazon EventBridge) delivers near real-time stream of system events that describe changes in AWS resources, allowing you to respond to these changes."
+  },
+  {
+    id: 8,
+    question: "How can you export CloudWatch Logs to S3?",
+    options: [
+      "Automatic export",
+      "Create export task or use Kinesis Data Firehose",
+      "Manual download only",
+      "Export is not supported"
+    ],
+    correctAnswer: 1,
+    explanation: "Export CloudWatch Logs to S3 using CreateExportTask API for batch export, or use Kinesis Data Firehose subscription for near real-time streaming."
+  },
+  {
+    id: 9,
+    question: "What is the purpose of CloudWatch metric filters?",
+    options: [
+      "To delete metrics",
+      "To extract metric data from log events",
+      "To encrypt metrics",
+      "To compress metrics"
+    ],
+    correctAnswer: 1,
+    explanation: "Metric filters extract metric data from log events, allowing you to create metrics from log patterns (e.g., count ERROR occurrences)."
+  },
+  {
+    id: 10,
+    question: "What is CloudWatch Synthetics?",
+    options: [
+      "A log generation service",
+      "A service for creating canaries to monitor endpoints",
+      "A metric aggregation service",
+      "A backup service"
+    ],
+    correctAnswer: 1,
+    explanation: "CloudWatch Synthetics allows you to create canaries (configurable scripts) that monitor endpoints and APIs, simulating user actions to detect issues."
+  },
+  {
+    id: 11,
+    question: "What is the difference between CloudWatch detailed and basic monitoring?",
+    options: [
+      "Detailed is 1-minute intervals, basic is 5-minute intervals",
+      "Detailed is more expensive",
+      "Basic is deprecated",
+      "Both A and B"
+    ],
+    correctAnswer: 3,
+    explanation: "Detailed monitoring provides metrics at 1-minute intervals (costs extra), while basic monitoring provides metrics at 5-minute intervals (free for many services)."
+  },
+  {
+    id: 12,
+    question: "How can you aggregate CloudWatch metrics across multiple resources?",
+    options: [
+      "Use metric math",
+      "Manual calculation only",
+      "Aggregation is not supported",
+      "Use Lambda functions"
+    ],
+    correctAnswer: 0,
+    explanation: "CloudWatch metric math allows you to aggregate and transform metrics across multiple resources using mathematical expressions."
+  },
+  {
+    id: 13,
+    question: "What is CloudWatch Contributor Insights?",
+    options: [
+      "A service to analyze top contributors to metrics",
+      "A log storage service",
+      "A backup service",
+      "A cost analysis tool"
+    ],
+    correctAnswer: 0,
+    explanation: "Contributor Insights analyzes log data to identify top contributors (e.g., top talkers, top error producers) helping you understand who or what is impacting system performance."
+  },
+  {
+    id: 14,
+    question: "What is the purpose of CloudWatch anomaly detection?",
+    options: [
+      "To encrypt data",
+      "To automatically detect unusual metric patterns using ML",
+      "To compress logs",
+      "To backup data"
+    ],
+    correctAnswer: 1,
+    explanation: "CloudWatch anomaly detection uses machine learning to automatically detect anomalous behavior in metrics, creating dynamic thresholds based on historical patterns."
+  },
+  {
+    id: 15,
+    question: "How can you stream CloudWatch Logs to Lambda?",
+    options: [
+      "Direct integration",
+      "Use subscription filters",
+      "Streaming is not supported",
+      "Use S3 export"
+    ],
+    correctAnswer: 1,
+    explanation: "Use CloudWatch Logs subscription filters to stream log events to Lambda functions in near real-time for processing and analysis."
+  },
+  {
+    id: 16,
+    question: "What is the maximum size of a CloudWatch Logs event?",
+    options: [
+      "64 KB",
+      "256 KB",
+      "512 KB",
+      "1 MB"
+    ],
+    correctAnswer: 1,
+    explanation: "A single CloudWatch Logs event can be up to 256 KB in size. Larger log entries should be split into multiple events."
+  },
+  {
+    id: 17,
+    question: "What is CloudWatch Container Insights?",
+    options: [
+      "A service for monitoring containerized applications",
+      "A container storage service",
+      "A container backup service",
+      "A container encryption service"
+    ],
+    correctAnswer: 0,
+    explanation: "Container Insights collects, aggregates, and summarizes metrics and logs from containerized applications (ECS, EKS, Kubernetes) for monitoring and troubleshooting."
+  },
+  {
+    id: 18,
+    question: "How can you create composite alarms in CloudWatch?",
+    options: [
+      "Combine multiple alarms using AND/OR logic",
+      "Composite alarms are not supported",
+      "Use Lambda functions",
+      "Manual monitoring only"
+    ],
+    correctAnswer: 0,
+    explanation: "Composite alarms combine multiple alarms using AND/OR logic, reducing alarm noise and allowing complex alerting scenarios."
+  },
+  {
+    id: 19,
+    question: "What is the purpose of CloudWatch metric streams?",
+    options: [
+      "To stream metrics to destinations like S3 or third-party services",
+      "To compress metrics",
+      "To encrypt metrics",
+      "To delete metrics"
+    ],
+    correctAnswer: 0,
+    explanation: "CloudWatch metric streams continuously stream metrics to destinations like Amazon S3 or third-party service providers with low latency."
+  },
+  {
+    id: 20,
+    question: "What is CloudWatch Application Insights?",
+    options: [
+      "A service for automated application monitoring and troubleshooting",
+      "A log storage service",
+      "A backup service",
+      "A cost analysis tool"
+    ],
+    correctAnswer: 0,
+    explanation: "Application Insights automatically sets up monitoring for applications, detects problems, and provides insights for troubleshooting using ML-powered analysis."
+  },
+  {
+    id: 21,
+    question: "How can you retain CloudWatch Logs for compliance?",
+    options: [
+      "Set retention policy and export to S3",
+      "Logs are automatically retained forever",
+      "Retention is not configurable",
+      "Use Lambda functions"
+    ],
+    correctAnswer: 0,
+    explanation: "Configure retention policies (1 day to 10 years or never expire) and export logs to S3 for long-term archival and compliance requirements."
+  },
+  {
+    id: 22,
+    question: "What is the purpose of CloudWatch cross-account observability?",
+    options: [
+      "To monitor resources across multiple AWS accounts",
+      "To share costs",
+      "To backup data",
+      "To encrypt data"
+    ],
+    correctAnswer: 0,
+    explanation: "Cross-account observability allows you to monitor and troubleshoot applications across multiple AWS accounts from a central monitoring account."
+  },
+  {
+    id: 23,
+    question: "What is CloudWatch Evidently?",
+    options: [
+      "A service for feature flags and A/B testing",
+      "A log storage service",
+      "A backup service",
+      "A cost analysis tool"
+    ],
+    correctAnswer: 0,
+    explanation: "CloudWatch Evidently enables you to safely validate new features by conducting A/B experiments and using feature flags to control feature rollout."
+  },
+  {
+    id: 24,
+    question: "How can you monitor Lambda function performance in CloudWatch?",
+    options: [
+      "Lambda automatically sends metrics to CloudWatch",
+      "Manual configuration required",
+      "Monitoring is not supported",
+      "Use third-party tools only"
+    ],
+    correctAnswer: 0,
+    explanation: "Lambda automatically sends metrics (invocations, duration, errors, throttles) to CloudWatch. You can also use CloudWatch Logs for function logs."
+  },
+  {
+    id: 25,
+    question: "What is the purpose of CloudWatch dashboard?",
+    options: [
+      "To visualize metrics and logs in customizable views",
+      "To store metrics",
+      "To encrypt data",
+      "To backup data"
+    ],
+    correctAnswer: 0,
+    explanation: "CloudWatch dashboards provide customizable views of metrics and logs, allowing you to create operational views and share them across teams."
+  },
+  {
+    id: 26,
+    question: "What is CloudWatch RUM (Real User Monitoring)?",
+    options: [
+      "A service to monitor actual user interactions with web applications",
+      "A log storage service",
+      "A backup service",
+      "A cost analysis tool"
+    ],
+    correctAnswer: 0,
+    explanation: "CloudWatch RUM collects and analyzes client-side data about actual user interactions with web applications, providing insights into user experience."
+  },
+  {
+    id: 27,
+    question: "How can you set up CloudWatch alarms for billing?",
+    options: [
+      "Use billing metrics in us-east-1 region",
+      "Billing alarms are not supported",
+      "Use Lambda functions",
+      "Manual monitoring only"
+    ],
+    correctAnswer: 0,
+    explanation: "Enable billing alerts in account preferences, then create alarms on billing metrics (available only in us-east-1 region) to monitor AWS costs."
+  },
+  {
+    id: 28,
+    question: "What is the purpose of CloudWatch Logs subscription filters?",
+    options: [
+      "To stream log events to other services in real-time",
+      "To delete logs",
+      "To encrypt logs",
+      "To compress logs"
+    ],
+    correctAnswer: 0,
+    explanation: "Subscription filters stream log events in real-time to destinations like Lambda, Kinesis Data Streams, or Kinesis Data Firehose for processing."
+  },
+  {
+    id: 29,
+    question: "What is CloudWatch ServiceLens?",
+    options: [
+      "An integrated view of traces, metrics, and logs for applications",
+      "A log storage service",
+      "A backup service",
+      "A cost analysis tool"
+    ],
+    correctAnswer: 0,
+    explanation: "ServiceLens integrates CloudWatch with X-Ray to provide an end-to-end view of your application, combining traces, metrics, logs, and alarms."
+  },
+  {
+    id: 30,
+    question: "How can you reduce CloudWatch costs?",
+    options: [
+      "Use log retention policies, metric filters, and sampling",
+      "CloudWatch is always free",
+      "Cost reduction is not possible",
+      "Delete all logs immediately"
+    ],
+    correctAnswer: 0,
+    explanation: "Reduce costs by setting appropriate log retention policies, using metric filters instead of storing all logs, implementing sampling, and using standard resolution metrics when possible."
+  }
+];
+
+// ============================================
+// AWS CI/CD QUESTIONS - Developer Associate
+// ============================================
+export const CICD_QUESTIONS: QuizQuestion[] = [
+  {
+    id: 1,
+    question: "What is AWS CodeCommit?",
+    options: [
+      "A build service",
+      "A managed source control service based on Git",
+      "A deployment service",
+      "A testing service"
+    ],
+    correctAnswer: 1,
+    explanation: "CodeCommit is a fully managed source control service that hosts secure Git repositories, providing a scalable and secure way to store code."
+  },
+  {
+    id: 2,
+    question: "What is the maximum file size for a single file in CodeCommit?",
+    options: [
+      "2 GB",
+      "5 GB",
+      "10 GB",
+      "Unlimited"
+    ],
+    correctAnswer: 0,
+    explanation: "CodeCommit supports files up to 2 GB in size. For larger files, consider using Git LFS (Large File Storage)."
+  },
+  {
+    id: 3,
+    question: "What is AWS CodeBuild?",
+    options: [
+      "A source control service",
+      "A fully managed build service that compiles code and runs tests",
+      "A deployment service",
+      "A monitoring service"
+    ],
+    correctAnswer: 1,
+    explanation: "CodeBuild is a fully managed continuous integration service that compiles source code, runs tests, and produces deployable artifacts."
+  },
+  {
+    id: 4,
+    question: "What file defines the build process in CodeBuild?",
+    options: [
+      "Dockerfile",
+      "buildspec.yml",
+      "package.json",
+      "config.json"
+    ],
+    correctAnswer: 1,
+    explanation: "The buildspec.yml file defines the build commands and settings for CodeBuild, including phases, environment variables, and artifacts."
+  },
+  {
+    id: 5,
+    question: "What is AWS CodeDeploy?",
+    options: [
+      "A source control service",
+      "A build service",
+      "A deployment service that automates application deployments",
+      "A testing service"
+    ],
+    correctAnswer: 2,
+    explanation: "CodeDeploy is a deployment service that automates application deployments to EC2, Lambda, ECS, and on-premises servers."
+  },
+  {
+    id: 6,
+    question: "What are the deployment types supported by CodeDeploy for EC2?",
+    options: [
+      "In-place and Blue/Green",
+      "Rolling only",
+      "Canary only",
+      "All-at-once only"
+    ],
+    correctAnswer: 0,
+    explanation: "CodeDeploy supports in-place deployments (updates instances in place) and blue/green deployments (creates new instances) for EC2."
+  },
+  {
+    id: 7,
+    question: "What is AWS CodePipeline?",
+    options: [
+      "A source control service",
+      "A continuous delivery service that orchestrates build, test, and deploy",
+      "A monitoring service",
+      "A testing service"
+    ],
+    correctAnswer: 1,
+    explanation: "CodePipeline is a continuous delivery service that orchestrates the entire release process, integrating with CodeCommit, CodeBuild, CodeDeploy, and third-party tools."
+  },
+  {
+    id: 8,
+    question: "What is the purpose of the appspec.yml file in CodeDeploy?",
+    options: [
+      "To define build commands",
+      "To define deployment actions and lifecycle hooks",
+      "To configure source control",
+      "To set up monitoring"
+    ],
+    correctAnswer: 1,
+    explanation: "The appspec.yml file defines deployment actions, file locations, permissions, and lifecycle event hooks for CodeDeploy deployments."
+  },
+  {
+    id: 9,
+    question: "What are CodeDeploy lifecycle event hooks?",
+    options: [
+      "Build phases",
+      "Scripts that run at specific points during deployment",
+      "Monitoring alerts",
+      "Source control triggers"
+    ],
+    correctAnswer: 1,
+    explanation: "Lifecycle event hooks are scripts that run at specific points during deployment (BeforeInstall, AfterInstall, ApplicationStart, etc.), allowing custom actions."
+  },
+  {
+    id: 10,
+    question: "What is AWS CodeArtifact?",
+    options: [
+      "A source control service",
+      "A managed artifact repository service",
+      "A deployment service",
+      "A build service"
+    ],
+    correctAnswer: 1,
+    explanation: "CodeArtifact is a fully managed artifact repository service for storing and sharing software packages (npm, Maven, PyPI, NuGet)."
+  },
+  {
+    id: 11,
+    question: "What is the purpose of CodePipeline stages?",
+    options: [
+      "To organize pipeline actions into logical groups",
+      "To store artifacts",
+      "To monitor deployments",
+      "To compile code"
+    ],
+    correctAnswer: 0,
+    explanation: "Stages organize pipeline actions into logical groups (Source, Build, Test, Deploy), with each stage containing one or more actions that run in sequence or parallel."
+  },
+  {
+    id: 12,
+    question: "What is a CodeBuild build environment?",
+    options: [
+      "The source code location",
+      "A Docker image with tools and runtimes for building",
+      "The deployment target",
+      "A monitoring dashboard"
+    ],
+    correctAnswer: 1,
+    explanation: "A build environment is a Docker image containing the operating system, programming language runtime, and tools needed to build your code."
+  },
+  {
+    id: 13,
+    question: "How can you trigger a CodePipeline execution?",
+    options: [
+      "Source code changes, manual trigger, or scheduled",
+      "Manual trigger only",
+      "Automatic only",
+      "Triggers are not supported"
+    ],
+    correctAnswer: 0,
+    explanation: "CodePipeline can be triggered by source code changes (via CloudWatch Events), manual execution, or on a schedule using CloudWatch Events rules."
+  },
+  {
+    id: 14,
+    question: "What is the purpose of CodeDeploy deployment groups?",
+    options: [
+      "To group source code files",
+      "To specify target instances and deployment configuration",
+      "To organize build artifacts",
+      "To monitor deployments"
+    ],
+    correctAnswer: 1,
+    explanation: "Deployment groups specify the target instances (by tags, Auto Scaling groups, or instance IDs) and deployment configuration for CodeDeploy."
+  },
+  {
+    id: 15,
+    question: "What is AWS CodeStar?",
+    options: [
+      "A unified interface for managing CI/CD and development tools",
+      "A source control service",
+      "A build service",
+      "A deployment service"
+    ],
+    correctAnswer: 0,
+    explanation: "CodeStar provides a unified interface for managing software development activities, integrating CodeCommit, CodeBuild, CodeDeploy, and CodePipeline."
+  },
+  {
+    id: 16,
+    question: "What is the difference between CodeDeploy in-place and blue/green deployment?",
+    options: [
+      "In-place updates existing instances, blue/green creates new instances",
+      "Blue/green is faster",
+      "In-place is more expensive",
+      "There is no difference"
+    ],
+    correctAnswer: 0,
+    explanation: "In-place deployment updates existing instances with downtime. Blue/green creates new instances, routes traffic to them, then terminates old instances with minimal downtime."
+  },
+  {
+    id: 17,
+    question: "How can you implement approval gates in CodePipeline?",
+    options: [
+      "Use manual approval actions",
+      "Approval gates are not supported",
+      "Use Lambda functions only",
+      "Automatic approval only"
+    ],
+    correctAnswer: 0,
+    explanation: "Add manual approval actions to CodePipeline stages to require human approval before proceeding, useful for production deployments."
+  },
+  {
+    id: 18,
+    question: "What is the purpose of CodeBuild cache?",
+    options: [
+      "To speed up builds by reusing dependencies",
+      "To store source code",
+      "To monitor builds",
+      "To deploy applications"
+    ],
+    correctAnswer: 0,
+    explanation: "CodeBuild cache stores dependencies and build outputs between builds, significantly reducing build time by avoiding re-downloading dependencies."
+  },
+  {
+    id: 19,
+    question: "What is AWS X-Ray integration with CodePipeline?",
+    options: [
+      "To trace pipeline executions",
+      "To monitor deployed applications",
+      "To build code",
+      "To store artifacts"
+    ],
+    correctAnswer: 1,
+    explanation: "X-Ray integration allows you to trace and analyze requests in deployed applications, helping identify performance bottlenecks and errors."
+  },
+  {
+    id: 20,
+    question: "What is the purpose of CodeDeploy rollback?",
+    options: [
+      "To automatically revert to previous version on deployment failure",
+      "To delete deployments",
+      "To monitor deployments",
+      "To build code"
+    ],
+    correctAnswer: 0,
+    explanation: "CodeDeploy automatic rollback reverts to the previous working version when deployment fails or alarms are triggered, ensuring application availability."
+  },
+  {
+    id: 21,
+    question: "How can you secure CodeCommit repositories?",
+    options: [
+      "Use IAM policies and encryption",
+      "Repositories are public by default",
+      "Security is not supported",
+      "Use passwords only"
+    ],
+    correctAnswer: 0,
+    explanation: "Secure CodeCommit using IAM policies for access control, encryption at rest and in transit, and MFA for additional security."
+  },
+  {
+    id: 22,
+    question: "What is the purpose of CodeBuild environment variables?",
+    options: [
+      "To pass configuration and secrets to build process",
+      "To store source code",
+      "To monitor builds",
+      "To deploy applications"
+    ],
+    correctAnswer: 0,
+    explanation: "Environment variables pass configuration, credentials, and other data to the build process. Use Parameter Store or Secrets Manager for sensitive data."
+  },
+  {
+    id: 23,
+    question: "What is CodePipeline artifact store?",
+    options: [
+      "An S3 bucket that stores pipeline artifacts between stages",
+      "A source control repository",
+      "A build environment",
+      "A monitoring dashboard"
+    ],
+    correctAnswer: 0,
+    explanation: "The artifact store is an S3 bucket where CodePipeline stores artifacts (build outputs, source code) that are passed between pipeline stages."
+  },
+  {
+    id: 24,
+    question: "What is the purpose of CodeDeploy traffic shifting?",
+    options: [
+      "To gradually shift traffic to new version",
+      "To monitor traffic",
+      "To build code",
+      "To store artifacts"
+    ],
+    correctAnswer: 0,
+    explanation: "Traffic shifting (canary, linear, all-at-once) gradually routes traffic to the new version, allowing you to monitor and rollback if issues occur."
+  },
+  {
+    id: 25,
+    question: "How can you integrate third-party tools with CodePipeline?",
+    options: [
+      "Use custom actions with Lambda or Jenkins",
+      "Third-party integration is not supported",
+      "Use CodeBuild only",
+      "Manual integration only"
+    ],
+    correctAnswer: 0,
+    explanation: "CodePipeline supports custom actions using Lambda functions or integrates with third-party tools like Jenkins, GitHub, and Bitbucket."
+  },
+  {
+    id: 26,
+    question: "What is the purpose of CodeBuild buildspec phases?",
+    options: [
+      "To organize build commands into logical steps",
+      "To store artifacts",
+      "To monitor builds",
+      "To deploy applications"
+    ],
+    correctAnswer: 0,
+    explanation: "Buildspec phases (install, pre_build, build, post_build) organize build commands into logical steps, making builds more maintainable and debuggable."
+  },
+  {
+    id: 27,
+    question: "What is AWS CodeGuru?",
+    options: [
+      "An ML-powered code review and performance recommendation service",
+      "A source control service",
+      "A build service",
+      "A deployment service"
+    ],
+    correctAnswer: 0,
+    explanation: "CodeGuru uses machine learning to provide automated code reviews (CodeGuru Reviewer) and application performance recommendations (CodeGuru Profiler)."
+  },
+  {
+    id: 28,
+    question: "How can you implement blue/green deployment for Lambda with CodeDeploy?",
+    options: [
+      "Use Lambda aliases and traffic shifting",
+      "Blue/green is not supported for Lambda",
+      "Use multiple functions",
+      "Manual deployment only"
+    ],
+    correctAnswer: 0,
+    explanation: "CodeDeploy uses Lambda aliases to implement blue/green deployments with traffic shifting (canary, linear, all-at-once) between function versions."
+  },
+  {
+    id: 29,
+    question: "What is the purpose of CodePipeline cross-region actions?",
+    options: [
+      "To deploy to multiple AWS regions",
+      "To store artifacts",
+      "To monitor pipelines",
+      "To build code"
+    ],
+    correctAnswer: 0,
+    explanation: "Cross-region actions allow CodePipeline to deploy applications to multiple AWS regions, enabling global application deployment from a single pipeline."
+  },
+  {
+    id: 30,
+    question: "What is the purpose of CodeDeploy deployment configuration?",
+    options: [
+      "To specify how fast and in what manner instances are deployed to",
+      "To store source code",
+      "To monitor deployments",
+      "To build code"
+    ],
+    correctAnswer: 0,
+    explanation: "Deployment configuration specifies deployment speed and manner (OneAtATime, HalfAtATime, AllAtOnce, or custom) controlling how many instances are deployed to simultaneously."
+  }
+];
+
 // General AWS Developer questions
 export const GENERAL_DEVELOPER_QUESTIONS: QuizQuestion[] = [
   {
@@ -1972,7 +3070,7 @@ export const DEVELOPER_TOPICS: QuizTopic[] = [
     name: 'All Topics',
     icon: '📚',
     description: 'All AWS Developer Associate questions',
-    questions: [...LAMBDA_QUESTIONS, ...DYNAMODB_QUESTIONS, ...API_GATEWAY_QUESTIONS, ...IAM_QUESTIONS, ...GENERAL_DEVELOPER_QUESTIONS]
+    questions: [...LAMBDA_QUESTIONS, ...DYNAMODB_QUESTIONS, ...API_GATEWAY_QUESTIONS, ...IAM_QUESTIONS, ...SQS_SNS_QUESTIONS, ...CLOUDWATCH_QUESTIONS, ...CICD_QUESTIONS, ...GENERAL_DEVELOPER_QUESTIONS]
   },
   {
     id: 'lambda',
@@ -2003,6 +3101,27 @@ export const DEVELOPER_TOPICS: QuizTopic[] = [
     questions: IAM_QUESTIONS
   },
   {
+    id: 'sqs-sns',
+    name: 'SQS/SNS',
+    icon: '📬',
+    description: 'Messaging and notification services questions',
+    questions: SQS_SNS_QUESTIONS
+  },
+  {
+    id: 'cloudwatch',
+    name: 'CloudWatch',
+    icon: '📊',
+    description: 'Monitoring and observability questions',
+    questions: CLOUDWATCH_QUESTIONS
+  },
+  {
+    id: 'cicd',
+    name: 'CI/CD',
+    icon: '🔄',
+    description: 'Continuous Integration and Deployment questions',
+    questions: CICD_QUESTIONS
+  },
+  {
     id: 'general',
     name: 'General',
     icon: '⚙️',
@@ -2017,6 +3136,9 @@ export const DEVELOPER_QUESTIONS: QuizQuestion[] = [
   ...DYNAMODB_QUESTIONS,
   ...API_GATEWAY_QUESTIONS,
   ...IAM_QUESTIONS,
+  ...SQS_SNS_QUESTIONS,
+  ...CLOUDWATCH_QUESTIONS,
+  ...CICD_QUESTIONS,
   ...GENERAL_DEVELOPER_QUESTIONS
 ];
 
